@@ -1,0 +1,197 @@
+<div class="container-lg container-fluid">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3>Edit profile:</h3>
+    </div>
+  </div>
+  @if(isLoader){
+  <div class="col-12 text-center">
+    <div class="spinner-border text-muted"></div>
+  </div>
+  } @else {
+  <div class="row justify-content-md-center mt-1">
+    <div class="col-sm-12 col-md-8 col-lg-6">
+      <div class="row">
+        <div class="col-12">
+          <label class="fw-bold">Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="name"
+            [(ngModel)]="userObj.name"
+            class="form-control rounded-pill"
+            style="border-color: black"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-6">
+      <div class="row">
+        <div class="col-12">
+          <label class="fw-bold">Lastname</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="lastname"
+            [(ngModel)]="userObj.lastname"
+            class="form-control rounded-pill"
+            style="border-color: black"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center mt-1">
+    <div class="col-sm-12 col-md-8 col-lg-6">
+      <div class="row">
+        <div class="col-12">
+          <label class="fw-bold">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="username"
+            [(ngModel)]="userObj.username"
+            class="form-control rounded-pill"
+            style="border-color: black"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-6">
+      <div class="row">
+        <div class="col-12">
+          <label class="fw-bold">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="password"
+            [(ngModel)]="userObj.password"
+            type="password"
+            class="form-control rounded-pill"
+            style="border-color: black"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center mt-1">
+    <div class="col-sm-12 col-md-8 col-lg-6">
+      <div class="row">
+        <div class="col-12">
+          <label class="fw-bold">Address</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="address"
+            [(ngModel)]="userObj.address"
+            class="form-control rounded-pill"
+            style="border-color: black"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-6">
+      <div class="row">
+        <div class="col-12">
+          <label class="fw-bold">City</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="city"
+            [(ngModel)]="userObj.city"
+            class="form-control rounded-pill"
+            style="border-color: black"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center mt-1">
+    <div class="col-sm-12 col-md-8 col-lg-6">
+      <div class="row">
+        <div class="col-12">
+          <label class="fw-bold">State</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="state"
+            [(ngModel)]="userObj.state"
+            class="form-control rounded-pill"
+            style="border-color: black"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-6">
+      <div class="row">
+        <div class="col-12">
+          <label class="fw-bold">Phone Number</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="phonenumber"
+            [(ngModel)]="userObj.phonenumber"
+            class="form-control rounded-pill"
+            style="border-color: black"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center mt-1">
+    <div class="col-sm-12 col-md-8 col-lg-12">
+      <div class="row">
+        <div class="col-12">
+          <label class="fw-bold">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="email"
+            [(ngModel)]="userObj.email"
+            class="form-control rounded-pill"
+            style="border-color: black"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-8 col-lg-12">
+      <div class="row justify-content-center">
+        <div class="col-lg-3 col-md-6 col-sm-9 justify-content-center d-flex">
+          <input
+            type="submit"
+            value="Edit"
+            (click)="onEditUser()"
+            id="register"
+            class="form-control rounded-pill border-black mt-4 fw-bold"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
