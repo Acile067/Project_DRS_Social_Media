@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { EditUserProfileComponent } from './components/edit-user-profile/edit-user-profile.component';
 import { authGuard } from './services/guard/auth.guard';
 import { adminGuard } from './services/guard/admin.guard';
+import { logInGuard } from './services/guard/log-in.guard';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,7 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [logInGuard],
   },
   {
     path: 'index',
