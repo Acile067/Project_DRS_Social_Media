@@ -7,9 +7,9 @@ class PostsRepository:
     def get_all_posts_for_user(username):
         return Post.query.filter_by(Username=username).all()
 
-    #@staticmethod
-    #def get_user_by_username(username):
-        #return User.query.filter_by(Username=username).first()
+    @staticmethod
+    def get_post_by_id(post_id):
+        return Post.query.filter_by(ID=post_id).first()
 
     @staticmethod
     def add_post(post):
@@ -18,4 +18,10 @@ class PostsRepository:
 
     @staticmethod
     def update_post(post):
+        db.session.commit()
+
+    @staticmethod
+    def delete_post(post):
+
+        db.session.delete(post)
         db.session.commit()

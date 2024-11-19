@@ -7,7 +7,7 @@ class Post(db.Model):
 
     ID = db.Column(Integer, primary_key=True)
     Username = db.Column(db.String(255), nullable=False)
-    Text = db.Column(db.String(255), nullable=False)
+    Txt = db.Column(db.String(255), nullable=False)
     ImagePath = db.Column(db.String(255), nullable=False)
     Approved = db.Column(db.String(255), nullable=False)
 
