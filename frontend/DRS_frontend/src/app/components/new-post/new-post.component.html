@@ -1,0 +1,31 @@
+<div class="container-lg container-fluid">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3>Create New Post:</h3>
+        </div>
+    </div>
+    <div class="row justify-content-md-center mt-1">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <img *ngIf="imagePreview" [src]="imagePreview" class="img-fluid mb-3" alt="Image Preview">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <textarea [(ngModel)]="postText" class="form-control rounded-pill" rows="4" placeholder="What's on your mind?" style="border-color: black;"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6 text-left">
+                    <input type="file" (change)="onImageSelected($event)" id="image-input" style="display: none;" accept="image/*">
+                    <button class="btn btn-primary" (click)="triggerFileInput()">Add Image</button>
+                </div>
+                <div class="col-6 text-right">
+                    <button class="btn btn-success" (click)="onPost()">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

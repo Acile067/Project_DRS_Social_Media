@@ -2,10 +2,33 @@ import jwt
 import datetime
 from app.repositories.user_repository import UserRepository
 from app.blueprints.users.models import User
+#from flask_mail import Message
+#from app.app import mail
 
 SECRET_KEY = 'your_secret_key_here'
 
+
+#def send_registration_email(email, username, password):
+    #msg = Message('Welcome to Our App',
+                  #recipients=[email])
+    #msg.body = f"""
+                    #Hi {username},
+
+                    #Welcome to our app! Here are your login details:
+
+                    #Username: {username}
+                    #Password: {password}
+
+                    #Please keep this information safe.
+
+                    #Best regards,
+                    #Your App Team
+                    #"""
+    #mail.send(msg)
+
+
 class UserService:
+
     @staticmethod
     def get_all_users():
         users = UserRepository.get_all_users()
@@ -23,6 +46,7 @@ class UserService:
             return {"message": "Username already exists"}, 400
 
         user = User(Username=username, Name=name, Lastname=lastname, Password=password, Email=email, Address=address, City=city, State=state,PhoneNumber=phonenumber)
+        #send_registration_email(user.Email, user.Username, user.Password)
         UserRepository.add_user(user)
         return {"message": "Created"}, 201
 
@@ -89,3 +113,4 @@ class UserService:
         }, SECRET_KEY, algorithm='HS256')
 
         return {"message": "Ok", "token": token}, 200
+

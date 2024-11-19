@@ -6,6 +6,7 @@ import { EditUserProfileComponent } from './components/edit-user-profile/edit-us
 import { authGuard } from './services/guard/auth.guard';
 import { adminGuard } from './services/guard/admin.guard';
 import { logInGuard } from './services/guard/log-in.guard';
+import { NewPostComponent } from './components/new-post/new-post.component';
 
 export const routes: Routes = [
   {
@@ -32,5 +33,10 @@ export const routes: Routes = [
     path: 'edituserprofile',
     component: EditUserProfileComponent,
     canActivate: [authGuard],
+  },
+  {
+    path: 'createnewpost',
+    component: NewPostComponent,
+    canActivate: [],
   },
 ];
