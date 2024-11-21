@@ -35,6 +35,11 @@ def create_app():
     from app.blueprints.users.routes import users_bp
     app.register_blueprint(users_bp, url_prefix='/user')
 
+    from app.blueprints.posts.routes import posts_bp
+    app.register_blueprint(posts_bp, url_prefix='/post')
+
+
+
     # Initialize Flask-Migrate for database migrations
     migrate = Migrate(app, db)
 

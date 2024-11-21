@@ -3,6 +3,11 @@ from app.app import db
 
 
 class PostsRepository:
+
+    @staticmethod
+    def get_all_posts():
+        return Post.query.all()
+
     @staticmethod
     def get_all_posts_for_user(username):
         return Post.query.filter_by(Username=username).all()
