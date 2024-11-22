@@ -22,8 +22,8 @@ def create():
     return jsonify(response), status
 
 @posts_bp.route('/editpost', methods=['GET, POST'])
-def edit(post_data):
-    post_id = post_data.get('post_id')
+def edit():
+    post_id = 'sasa evo ti konflikt'
     if request.method == 'GET':
         response, status = PostService.get_post_by_id(post_id)
         return {"data": response}, status

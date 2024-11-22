@@ -3,7 +3,6 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { IAPIResponseUserDataModel, IUser } from '../../model/interfaces/user';
 import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
-
 @Component({
   selector: 'app-master',
   standalone: true,
