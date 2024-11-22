@@ -17,11 +17,11 @@ class PostService:
         return {"data": posts_list}, 200
 
     @staticmethod
-    def create_post(post_id, username, txt, image_path, approved):
-        if not all([post_id, username, txt, image_path, approved]):
+    def create_post(username, txt, image_path):
+        if not (txt or image_path):
             return {"message": "Missing data"}, 400
 
-        post = Post(ID=post_id, Username=username, Txt=txt, ImagePath=image_path, Approved=approved)
+        post = Post(Username=username, Txt=txt, ImagePath=image_path)
         PostsRepository.add_post(post)
         return {"message": "Created"}, 201
 

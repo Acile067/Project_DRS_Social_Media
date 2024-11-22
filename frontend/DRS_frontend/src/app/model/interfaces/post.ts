@@ -1,9 +1,6 @@
 export interface IPost {
-  id: string;
-  username: string;
   txt: string;
-  imagepath: string;
-  approved: string;
+  image_path: string;
 }
 
 export interface IAPIResponsePostDataModel {
