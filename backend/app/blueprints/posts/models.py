@@ -9,8 +9,8 @@ class Post(db.Model):
 
     ID = db.Column(db.String(255), primary_key=True, default=lambda: str(uuid.uuid4()))
     Username = db.Column(db.String(255), nullable=False)
-    Txt = db.Column(db.String(255), nullable=False)
-    ImagePath = db.Column(db.String(255), nullable=False)
+    Txt = db.Column(db.String(255), nullable=True)
+    ImagePath = db.Column(db.String(255), nullable=True)
     Approved = db.Column(db.String(255), nullable=False, default="no")
 
 
