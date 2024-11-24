@@ -1,4 +1,6 @@
 from app.blueprints.users.models import User
+from sqlalchemy.orm import aliased
+from sqlalchemy import or_
 from app.app import db
 
 
@@ -19,3 +21,19 @@ class UserRepository:
     @staticmethod
     def update_user(user):
         db.session.commit()
+
+    @staticmethod
+    def search_users(filter, username_id):
+        return User.query.filter(
+            or_(
+                User.Name.ilike(f'%{filter}%'),
+                User.Lastname.ilike(f'%{filter}%'),
+                User.Username.ilike(f'%{filter}%'),
+                User.Email.ilike(f'%{filter}%'),
+                User.Address.ilike(f'%{filter}%'),
+                User.City.ilike(f'%{filter}%'),
+                User.State.ilike(f'%{filter}%'),
+                User.PhoneNumber.ilike(f'%{filter}%')
+            ),
+            User.Username != username_id  # Exclude the user with the given username_id
+        ).all()

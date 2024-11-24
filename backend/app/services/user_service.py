@@ -35,6 +35,20 @@ class UserService:
         users_list = [{"username": user.Username, "name": user.Name, "lastname": user.Lastname, "email": user.Email} for user in users]
         return {"data": users_list}, 200
 
+    @staticmethod
+    def search_users_by_filter(filter_data, username_id):
+
+        if "filter" not in filter_data:
+            return {"message": "Filter parameter is missing"}, 400
+
+        filter_value = filter_data["filter"]
+
+        users = UserRepository.search_users(filter_value, username_id)
+
+        users_list = [{"username": user.Username, "name": user.Name, "lastname": user.Lastname, "email": user.Email, "phonenumber" : user.PhoneNumber, "state" : user.State, "city" : user.City, "address" : user.Address} for
+                      user in users]
+
+        return {"data": users_list}, 200
 
     @staticmethod
     def register_user(username, name, lastname, password, email, address, city, state, phonenumber):

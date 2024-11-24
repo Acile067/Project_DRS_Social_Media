@@ -40,6 +40,9 @@ def create_app():
     from app.blueprints.posts.routes import posts_bp
     app.register_blueprint(posts_bp, url_prefix='/post')
 
+    from app.blueprints.relationships.routes import relationships_bp
+    app.register_blueprint(relationships_bp, url_prefix='/relationships')
+
 
 
     # Initialize Flask-Migrate for database migrations

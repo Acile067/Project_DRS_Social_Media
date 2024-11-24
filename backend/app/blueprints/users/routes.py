@@ -9,6 +9,15 @@ def get_all_users():
     response, status = UserService.get_all_users()
     return jsonify(response), status
 
+@users_bp.route('/searchfriend', methods=['POST'])
+@token_required
+def search_friend(user_data):
+    data = request.json
+    username_id = user_data.get('user_id')
+
+    response, status = UserService.search_users_by_filter(data, username_id)
+    return jsonify(response), status
+
 @users_bp.route('/login', methods=['POST'])
 def login():
     data = request.json
@@ -31,7 +40,6 @@ def register(user_data):
 def edit_user_profile(user_data):
     username_id = user_data.get('user_id')
     if request.method == 'GET':
-        # Prikaz podataka o korisniku
         response, status = UserService.get_user_by_username(username_id)
         return {"data": response}, status
 
