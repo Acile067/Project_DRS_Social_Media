@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 import os
 
 
-from backend.app.repositories.posts_repository import PostsRepository
+from app.repositories.posts_repository import PostsRepository
 
 posts_bp = Blueprint('posts_bp', __name__)
 
