@@ -1,6 +1,9 @@
 from app.repositories.posts_repository import PostsRepository
 from app.blueprints.posts.models import Post
 
+from backend.app.repositories.user_repository import UserRepository
+
+
 class PostService:
 
     @staticmethod
@@ -63,3 +66,9 @@ class PostService:
             }, 200
 
         return {"message": "Post not found"}, 404
+
+    @staticmethod
+    def get_username(user_id):
+        user = UserRepository.get_user_by_username(user_id)
+        username = user.Username
+        return username
