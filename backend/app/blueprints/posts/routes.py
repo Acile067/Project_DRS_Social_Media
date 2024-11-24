@@ -57,9 +57,11 @@ def create(user_data):
     return jsonify(response), status
 
 @posts_bp.route('/editpost', methods=['GET, POST'])
+
 @token_required
 def edit():
     post_id = request.args.get('post_id')
+
     if request.method == 'GET':
         response, status = PostService.get_post_by_id(post_id)
         return {"data": response}, status
