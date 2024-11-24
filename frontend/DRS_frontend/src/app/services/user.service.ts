@@ -4,8 +4,9 @@ import {
   IAPIResponseUserDataModel,
   IAPIResponseUserMessageModel,
   IAPIResponseUserTokenModel,
+  IUser,
 } from '../model/interfaces/user';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UserLogin, UserRegister } from '../model/class/user';
 import { environment } from '../../environments/environment.development';
 import { Constant } from '../constant/constant';
@@ -14,6 +15,12 @@ import { Constant } from '../constant/constant';
   providedIn: 'root',
 })
 export class UserService {
+  private userListSubject = new BehaviorSubject<IUser[]>([]);
+  userList$ = this.userListSubject.asObservable();
+
+  setUserList(userList: IUser[]) {
+    this.userListSubject.next(userList);
+  }
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<IAPIResponseUserDataModel> {
