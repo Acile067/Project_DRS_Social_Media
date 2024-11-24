@@ -1,7 +1,7 @@
 from app.repositories.posts_repository import PostsRepository
 from app.blueprints.posts.models import Post
 
-from backend.app.repositories.user_repository import UserRepository
+from app.repositories.user_repository import UserRepository
 
 
 class PostService:
