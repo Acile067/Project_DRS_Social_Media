@@ -1,6 +1,8 @@
 import jwt
 import datetime
 from app.repositories.user_repository import UserRepository
+from app.repositories.relationships_repository import RelationshipsRepository
+from app.blueprints.relationships.models import Relationships
 from app.blueprints.users.models import User
 #from flask_mail import Message
 #from app.app import mail
@@ -45,8 +47,19 @@ class UserService:
 
         users = UserRepository.search_users(filter_value, username_id)
 
-        users_list = [{"username": user.Username, "name": user.Name, "lastname": user.Lastname, "email": user.Email, "phonenumber" : user.PhoneNumber, "state" : user.State, "city" : user.City, "address" : user.Address} for
-                      user in users]
+        users_list = []
+        for user in users:
+            if not RelationshipsRepository.is_friend_or_pending(username_id, user.Username):
+                users_list.append({
+                    "username": user.Username,
+                    "name": user.Name,
+                    "lastname": user.Lastname,
+                    "email": user.Email,
+                    "phonenumber": user.PhoneNumber,
+                    "state": user.State,
+                    "city": user.City,
+                    "address": user.Address
+                })
 
         return {"data": users_list}, 200
 

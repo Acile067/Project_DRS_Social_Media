@@ -1,6 +1,9 @@
-<div *ngIf="userList.length > 0; else noResults">
+<div *ngIf="myFriendsList.length > 0; else noResults">
   <div class="row">
-    <div class="col-lg-4 col-md-6 col-sm-12 my-2" *ngFor="let user of userList">
+    <div
+      class="col-lg-4 col-md-6 col-sm-12 my-2"
+      *ngFor="let user of myFriendsList"
+    >
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{ user.name }} {{ user.lastname }}</h5>
@@ -15,8 +18,9 @@
           <p class="card-text">
             {{ user.phonenumber }}
           </p>
-          <a class="card-link" (click)="onAddFriend(user.username)"
-            >Add Friend</a
+
+          <a class="card-link" (click)="onDeleteFriend(user.requestid)"
+            >Remove</a
           >
         </div>
       </div>
@@ -25,5 +29,5 @@
 </div>
 
 <ng-template #noResults>
-  <p>No users found</p>
+  <p>No friends found</p>
 </ng-template>

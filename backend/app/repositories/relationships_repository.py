@@ -14,9 +14,9 @@ class RelationshipsRepository:
         return new_relationship
 
     @staticmethod
-    def update_friendship_status(requester_id, receiver_id, status):
+    def update_friendship_status(request_id, receiver_id, status):
         relationship = Relationships.query.filter_by(
-            Requester_id=requester_id,
+            Id=request_id,
             Receiver_id=receiver_id
         ).first()
         if relationship:
@@ -29,7 +29,7 @@ class RelationshipsRepository:
     def get_friends(user_id):
         return Relationships.query.filter(
             (Relationships.Requester_id == user_id) | (Relationships.Receiver_id == user_id),
-            Relationships.status == 'accepted'
+            Relationships.Status == 'accepted'
         ).all()
 
     @staticmethod
@@ -38,3 +38,23 @@ class RelationshipsRepository:
             Relationships.Receiver_id == user_id,
             Relationships.Status == 'pending'
         ).all()
+
+    def is_friend_or_pending(requester_id, receiver_id):
+        relationship = Relationships.query.filter(
+            ((Relationships.Requester_id == requester_id) & (Relationships.Receiver_id == receiver_id)) |
+            ((Relationships.Requester_id == receiver_id) & (Relationships.Receiver_id == requester_id)),
+            Relationships.Status.in_(['accepted', 'pending'])
+        ).first()
+        return relationship is not None
+
+    @staticmethod
+    def delete_relationship(request_id, username_id):
+        relationship = Relationships.query.filter_by(Id=request_id).first()
+        if relationship:
+            if username_id == relationship.Requester_id or username_id == relationship.Receiver_id:
+                db.session.delete(relationship)
+                db.session.commit()
+                return True
+            else:
+                raise PermissionError("You are not authorized to delete this relationship.")
+        return False

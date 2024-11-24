@@ -37,3 +37,7 @@ class UserRepository:
             ),
             User.Username != username_id  # Exclude the user with the given username_id
         ).all()
+
+    @staticmethod
+    def get_users_by_usernames(usernames):
+        return User.query.filter(User.Username.in_(usernames)).all()
