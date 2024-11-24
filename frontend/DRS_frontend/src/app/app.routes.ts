@@ -7,6 +7,7 @@ import { authGuard } from './services/guard/auth.guard';
 import { adminGuard } from './services/guard/admin.guard';
 import { logInGuard } from './services/guard/log-in.guard';
 import { NewPostComponent } from './components/new-post/new-post.component';
+import { FriendsComponent } from './components/friends/friends.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,11 @@ export const routes: Routes = [
   {
     path: 'index',
     component: MasterComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'friends',
+    component: FriendsComponent,
     canActivate: [authGuard],
   },
   {
