@@ -4,6 +4,7 @@ export const Constant = {
     REGISTER_USER: 'user/register',
     LOGIN_USER: 'user/login',
     EDIT_PROFILE: 'user/edituserprofile',
+    CREATE_POST: 'post/createpost',
   },
   ALERT_MESSAGES: {
     UNKONOW_ERROR: 'An unknown error occurred',

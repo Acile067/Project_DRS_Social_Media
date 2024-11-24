@@ -13,7 +13,9 @@ def create_app():
 
     # Configure SQLAlchemy (MySQL database)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:MySQLPassword1@127.0.0.1/appDB'
-
+    UPLOAD_FOLDER = 'uploads/images'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
     # Flask-Mail configuration for email sending
     #app.config['MAIL_SERVER'] = 'smtp.hushmail.com'  # SMTP server

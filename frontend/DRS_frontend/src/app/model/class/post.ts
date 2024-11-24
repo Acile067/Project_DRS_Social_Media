@@ -1,17 +1,11 @@
 export class Post {
-    id: string;
-    username: string;
     txt: string;
-    imagepath: string;
-    approved: string;
+    image_path: string;
    
   
-    constructor() {
-        (this.id = ''),
-        (this.username = ''),       
+    constructor() {    
         (this.txt = ''),
-        (this.imagepath = ''),
-        (this.approved = '');
+        (this.image_path = '')
        
     }
   }
