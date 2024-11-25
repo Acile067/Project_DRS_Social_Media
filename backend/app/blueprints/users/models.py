@@ -15,6 +15,7 @@ class User(db.Model):
     State = db.Column(db.String(255), nullable=False)
     PhoneNumber = db.Column(db.String(255), nullable=False)
     IsAdmin = db.Column(db.String(255), nullable=False, default="no")
+    IsNewUser = db.Column(db.String(255), nullable=False, default="yes")
 
     def __repr__(self):
         return  f"<Username {self.Username}, Name: {self.Name}>"
