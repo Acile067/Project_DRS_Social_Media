@@ -1,0 +1,33 @@
+<div *ngIf="myFriendsList.length > 0; else noResults">
+  <div class="row">
+    <div
+      class="col-lg-4 col-md-6 col-sm-12 my-2"
+      *ngFor="let user of myFriendsList"
+    >
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ user.name }} {{ user.lastname }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ user.username }}</h6>
+          <p class="card-text">
+            {{ user.email }}
+          </p>
+          <p class="card-text">{{ user.city }} {{ user.state }}</p>
+          <p class="card-text">
+            {{ user.address }}
+          </p>
+          <p class="card-text">
+            {{ user.phonenumber }}
+          </p>
+
+          <a class="card-link" (click)="onDeleteFriend(user.requestid)"
+            >Remove</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noResults>
+  <p>No friends found</p>
+</ng-template>

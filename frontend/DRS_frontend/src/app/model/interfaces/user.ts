@@ -3,6 +3,10 @@ export interface IUser {
   lastname: string;
   name: string;
   username: string;
+  address: string;
+  city: string;
+  state: string;
+  phonenumber: string;
 }
 
 export interface IAPIResponseUserDataModel {
