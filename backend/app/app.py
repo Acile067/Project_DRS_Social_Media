@@ -2,11 +2,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
-#from flask_mail import Mail  # Import Flask-Mail
-
-# Initialize the database and mail
+from flask_mail import Mail
+# Initialize the database
 db = SQLAlchemy()
-#mail = Mail()
+mail = Mail()
 
 def create_app():
     app = Flask(__name__, template_folder='templates')
@@ -17,18 +16,17 @@ def create_app():
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
-    # Flask-Mail configuration for email sending
-    #app.config['MAIL_SERVER'] = 'smtp.hushmail.com'  # SMTP server
-    #app.config['MAIL_PORT'] = 587
-    #app.config['MAIL_USE_TLS'] = True
-    #app.config['MAIL_USE_SSL'] = False
-    #app.config['MAIL_USERNAME'] = 'hehido1992@lineacr.com'  # Your admin email address
-    #app.config['MAIL_PASSWORD'] = ''  # Your email password or app password
-    #app.config['MAIL_DEFAULT_SENDER'] = 'hehido1992@lineacr.com'
+    # Mail configuration
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USE_SSL '] = False
+    app.config['MAIL_USERNAME'] = 'aleksandarsasastefanjovana@gmail.com'  # Postavite vaš email
+    app.config['MAIL_PASSWORD'] = 'ilpl posz pbee odrr'  # Postavite vašu lozinku
+    app.config['MAIL_DEFAULT_SENDER'] = 'aleksandarsasastefanjovana@gmail.com'
 
-    # Initialize the extensions
     db.init_app(app)
-    #mail.init_app(app)  # Initialize Flask-Mail
+    mail.init_app(app)
 
     # Enable Cross-Origin Resource Sharing (CORS)
     CORS(app)
@@ -43,9 +41,6 @@ def create_app():
     from app.blueprints.relationships.routes import relationships_bp
     app.register_blueprint(relationships_bp, url_prefix='/relationships')
 
-
-
-    # Initialize Flask-Migrate for database migrations
     migrate = Migrate(app, db)
 
     return app
