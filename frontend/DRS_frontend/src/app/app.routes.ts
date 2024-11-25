@@ -8,6 +8,7 @@ import { adminGuard } from './services/guard/admin.guard';
 import { logInGuard } from './services/guard/log-in.guard';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { FriendsComponent } from './components/friends/friends.component';
+import { PostsReviewComponent } from './components/posts-review/posts-review.component';
 
 export const routes: Routes = [
   {
@@ -43,6 +44,11 @@ export const routes: Routes = [
   {
     path: 'createnewpost',
     component: NewPostComponent,
+    canActivate: [],
+  },
+  {
+    path: 'postsreview',
+    component: PostsReviewComponent,
     canActivate: [],
   },
 ];
