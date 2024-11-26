@@ -1,57 +1,48 @@
 <div class="container">
-  <div class="row d-flex justify-content-center align-items-center my-3">
-    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-      <button
-        type="button"
-        (click)="changeTab('search')"
-        class="btn btn-primary"
-      >
-        Search
-      </button>
-      <button
-        type="button"
-        (click)="changeTab('pending')"
-        class="btn btn-primary mx-2"
-      >
-        Pending
-      </button>
-      <button
-        type="button"
-        (click)="changeTab('frineds')"
-        class="btn btn-primary"
-      >
-        Friends
-      </button>
+  <div class="row">
+    <!-- Left column for buttons -->
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="button-container">
+        <button
+          type="button"
+          (click)="changeTab('search')"
+          class="btn btn-primary w-100 mb-2"
+        >
+          Search
+        </button>
+        <button
+          type="button"
+          (click)="changeTab('pending')"
+          class="btn btn-primary w-100 mb-2"
+        >
+          Pending
+        </button>
+        <button
+          type="button"
+          (click)="changeTab('friends')"
+          class="btn btn-primary w-100 mb-2"
+        >
+          Friends
+        </button>
+      </div>
     </div>
-  </div>
-  <div
-    *ngIf="currentComponent == 'search'"
-    class="row d-flex justify-content-center align-items-center"
-  >
-    <div class="col-lg-4 col-md-6 col-sm-12">
-      <app-search-bar></app-search-bar>
+
+    <!-- Right column for content -->
+    <div class="col-lg-9 col-md-8 col-sm-12">
+      <div class="content-container">
+        <div *ngIf="currentComponent == 'search'">
+          <app-search-bar></app-search-bar>
+          <app-show-searched-friends></app-show-searched-friends>
+        </div>
+
+        <div *ngIf="currentComponent == 'pending'">
+          <app-pending-friend-requests></app-pending-friend-requests>
+        </div>
+
+        <div *ngIf="currentComponent == 'friends'">
+          <app-my-friends></app-my-friends>
+        </div>
+      </div>
     </div>
-  </div>
-  <div
-    *ngIf="currentComponent == 'search'"
-    class="row d-flex justify-content-center align-items-center"
-  >
-    <div class="col-12">
-      <app-show-searched-friends></app-show-searched-friends>
-    </div>
-  </div>
-  <div
-    *ngIf="currentComponent == 'pending'"
-    class="row d-flex justify-content-center align-items-center"
-  >
-    <div class="col-12">
-      <app-pending-friend-requests></app-pending-friend-requests>
-    </div>
-  </div>
-  <div
-    *ngIf="currentComponent == 'frineds'"
-    class="row d-flex justify-content-center align-items-center"
-  >
-    <div class="col-12"><app-my-friends></app-my-friends></div>
   </div>
 </div>

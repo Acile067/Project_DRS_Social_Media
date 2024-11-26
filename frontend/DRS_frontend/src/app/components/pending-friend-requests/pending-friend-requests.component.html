@@ -4,31 +4,38 @@
       class="col-lg-4 col-md-6 col-sm-12 my-2"
       *ngFor="let user of pendingRequestsList"
     >
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ user.name }} {{ user.lastname }}</h5>
+      <div
+        class="card h-100 shadow-sm"
+        style="background-color: #f9f9f9; border: 1px solid #d6d6d6; border-radius: 8px;"
+      >
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-primary">{{ user.name }} {{ user.lastname }}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{ user.username }}</h6>
-          <p class="card-text">
-            {{ user.email }}
+          <p class="card-text mb-1">
+            <strong>Email:</strong> {{ user.email }}
           </p>
-          <p class="card-text">{{ user.city }} {{ user.state }}</p>
-          <p class="card-text">
-            {{ user.address }}
+          <p class="card-text mb-1">
+            <strong>Location:</strong> {{ user.city }}, {{ user.state }}
           </p>
-          <p class="card-text">
-            {{ user.phonenumber }}
+          <p class="card-text mb-1">
+            <strong>Address:</strong> {{ user.address }}
           </p>
-          <div class="d-flex">
-            <a
-              class="card-link"
+          <p class="card-text mb-3">
+            <strong>Phone:</strong> {{ user.phonenumber }}
+          </p>
+          <div class="d-flex justify-content-between mt-auto">
+            <button
+              class="btn btn-outline-success"
               (click)="onAcceptOrReject(user.requestid, 'accepted')"
-              >Accept</a
             >
-            <a
-              class="card-link"
+              Accept
+            </button>
+            <button
+              class="btn btn-outline-danger"
               (click)="onAcceptOrReject(user.requestid, 'rejected')"
-              >Reject</a
             >
+              Reject
+            </button>
           </div>
         </div>
       </div>
@@ -37,5 +44,5 @@
 </div>
 
 <ng-template #noResults>
-  <p>No pending requests found</p>
+  <p class="text-center text-muted mt-4">No pending requests found</p>
 </ng-template>

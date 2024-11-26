@@ -5,7 +5,7 @@
         @for (search of recentSearches();track $index){
             <mat-list-item (click)="performSearch(search)">
                 <mat-icon matListItemIcon>history</mat-icon>
-                <h3 matListItemTitle>{{search}}</h3>
+                <p matListItemTitle class="searchHistory">{{search}}</p>
                 <button matListItemMeta math-icon-button (click)="deleteRecentSearch(search); $event.stopPropagation()">
                     <mat-icon>close</mat-icon>
                 </button>
