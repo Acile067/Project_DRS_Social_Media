@@ -20,6 +20,7 @@ class UserRepository:
 
     @staticmethod
     def update_user(user):
+        db.session.add(user)
         db.session.commit()
 
     @staticmethod

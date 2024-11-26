@@ -2,32 +2,65 @@ import jwt
 import datetime
 from app.repositories.user_repository import UserRepository
 from app.repositories.relationships_repository import RelationshipsRepository
-from app.blueprints.relationships.models import Relationships
 from app.blueprints.users.models import User
-#from flask_mail import Message
-#from app.app import mail
+from flask_mail import Message
+from app.app import mail
+from flask import current_app
+import threading
 
 SECRET_KEY = 'your_secret_key_here'
 
+def send_email_task(app,email, username, password):
+    with app.app_context():  # Push the application context
+        msg = Message(
+            'Welcome to Our App',
+            recipients=[email]
+        )
+        msg.body = f"""
+        Hi {username},
 
-#def send_registration_email(email, username, password):
-    #msg = Message('Welcome to Our App',
-                  #recipients=[email])
-    #msg.body = f"""
-                    #Hi {username},
+        Welcome to our app! Here are your login details:
 
-                    #Welcome to our app! Here are your login details:
+        Username: {username}
+        Password: {password}
 
-                    #Username: {username}
-                    #Password: {password}
+        Please keep this information safe.
 
-                    #Please keep this information safe.
+        Best regards,
+        Your App Team
+        """
+        mail.send(msg)
 
-                    #Best regards,
-                    #Your App Team
-                    #"""
-    #mail.send(msg)
+def send_email_task_to_admin(app, username):
+    with app.app_context():  # Push the application context
+        msg = Message(
+            'User Logged In Notification',
+            recipients=['aleksandarsasastefanjovana@gmail.com']
+        )
+        msg.body = f"""
+        The following user has successfully logged into the application:
 
+        Username: {username}
+
+        Best regards,
+        Your App Team
+        """
+        mail.send(msg)
+
+
+def send_registration_email(email, username, password):
+    from run import flask_app
+    email_thread = threading.Thread(
+        target=send_email_task, args=(flask_app,email, username, password)
+    )
+    email_thread.start()
+
+def send_email_to_admin(username):
+    from run import flask_app
+    email_thread = threading.Thread(
+        target=send_email_task_to_admin, args=(flask_app,username)
+    )
+    email_thread.start()
 
 class UserService:
 
@@ -73,7 +106,7 @@ class UserService:
             return {"message": "Username already exists"}, 400
 
         user = User(Username=username, Name=name, Lastname=lastname, Password=password, Email=email, Address=address, City=city, State=state,PhoneNumber=phonenumber)
-        #send_registration_email(user.Email, user.Username, user.Password)
+        send_registration_email(user.Email, user.Username, user.Password)
         UserRepository.add_user(user)
         return {"message": "Created"}, 201
 
@@ -85,6 +118,11 @@ class UserService:
         existing_user = UserRepository.get_user_by_username(username)
         if not existing_user or existing_user.Password != password:
             return {"message": "Wrong username or password"}, 400
+
+        if existing_user.IsNewUser == 'yes':
+            existing_user.IsNewUser = 'no'
+            UserRepository.update_user(existing_user)
+            send_email_to_admin(username)
 
         token = jwt.encode({
             'user_id': existing_user.Username,
