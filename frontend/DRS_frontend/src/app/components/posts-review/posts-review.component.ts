@@ -1,24 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-
+import { CommonModule } from '@angular/common';
+import { WebSocketService } from '../../services/web-socket.service'; // Import your WebSocketService
 
 @Component({
   selector: 'app-posts-review',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './posts-review.component.html',
-  styleUrl: './posts-review.component.css'
+  styleUrls: ['./posts-review.component.css'] // Fixed typo here
 })
-
-
 export class PostsReviewComponent implements OnInit {
   posts: any[] = [];
 
-  constructor(private socket: Socket) { }
+  constructor(private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
-    this.socket.on('new_post', (post: any) => {
-      this.posts.push(post);
-    });
-  }
+    // Listen for the 'new_post' event from the server
+    this.webSocketService.on('new_post').subscribe((post: any) => {
+      this.posts.push(post); // Add new post to the list
+    });
+  }
 }

@@ -3,8 +3,11 @@ import uuid
 from flask import Blueprint, request, jsonify, current_app
 from app.blueprints.auth.auth import token_required
 from app.services.post_service import PostService
+from flask_cors import cross_origin
 from werkzeug.utils import secure_filename
 import os
+from app.app import db, socketio  # Import socketio
+from flask_socketio import emit  # Import emit
 
 
 
@@ -28,6 +31,7 @@ def get_all_posts_for_user():
     return jsonify(response), status
 
 @posts_bp.route('/createpost', methods=['POST'])
+@cross_origin()
 @token_required
 def create(user_data):
     current_user_id = user_data.get('user_id')
@@ -54,7 +58,15 @@ def create(user_data):
     print("Received text:", txt)
 
     response, status = PostService.create_post(current_user_username, txt, image_uuid)
+
+    socketio.emit('new_post', {
+        'username': current_user_username,
+        'txt': txt,
+        'image_path': image_uuid
+    })
+
     return jsonify(response), status
+
 
 @posts_bp.route('/editpost', methods=['GET, POST'])
 
