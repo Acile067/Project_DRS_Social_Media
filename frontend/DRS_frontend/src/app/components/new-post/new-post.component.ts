@@ -42,10 +42,6 @@ export class NewPostComponent {
 
   // Handle post submission
   onPost() {
-    if (!this.postObject.txt || this.postObject.txt.trim().length === 0) {
-      alert('Post content is required.');
-      return;
-    }
 
     const formData = new FormData();
     formData.append('txt', this.postObject.txt.trim());

@@ -9,12 +9,16 @@ class PostsRepository:
         return Post.query.all()
 
     @staticmethod
-    def get_all_posts_for_user(username):
-        return Post.query.filter_by(Username=username).all()
+    def get_all_approved_posts_for_user(username):
+        return Post.query.filter_by(Username=username, Approved="yes").all()
 
     @staticmethod
     def get_post_by_id(post_id):
         return Post.query.filter_by(ID=post_id).first()
+
+    @staticmethod
+    def get_unapproved_posts():
+        return Post.query.filter_by(Approved='no').all()
 
     @staticmethod
     def add_post(post):
@@ -22,7 +26,7 @@ class PostsRepository:
         db.session.commit()
 
     @staticmethod
-    def update_post(post):
+    def update_post():
         db.session.commit()
 
     @staticmethod

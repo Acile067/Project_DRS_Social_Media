@@ -9,6 +9,7 @@ import { logInGuard } from './services/guard/log-in.guard';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { PostsReviewComponent } from './components/posts-review/posts-review.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -49,6 +50,11 @@ export const routes: Routes = [
   {
     path: 'postsreview',
     component: PostsReviewComponent,
+    canActivate: [],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
     canActivate: [],
   },
 ];
