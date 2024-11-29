@@ -86,6 +86,23 @@ def edit():
                                                data.get('image_path'),data.get('approved'))
         return jsonify(response), status
 
+@posts_bp.route('/delete', methods=['POST'])
+@cross_origin()
+def delete_post():
+    data = request.json  # Parse JSON body
+    post_id = data.get('post_id')  # Extract post_id from the body
+
+    if not post_id:
+        return jsonify({'message': 'Post ID is required'}), 400
+
+    post = PostService.get_post_by_id(post_id)
+    if post:
+        PostService.delete_post(post_id)
+        response = {'message': 'Post deleted successfully'}
+        return jsonify(response), 200
+
+    return jsonify({'message': 'Post not found'}), 404
+
 @posts_bp.route('/unapproved', methods=['GET'])
 @cross_origin()
 def get_unapproved_posts():
@@ -112,9 +129,7 @@ def approve_post():
 @cross_origin()
 def reject_post():
     data = request.json  # Parse JSON body
-    print("Received data:", data)  # Debug log
     post_id = data.get('post_id')  # Extract post_id from the body
-    print("Extracted post_id:", post_id)  # Debug log
 
     if not post_id:
         return jsonify({'message': 'Post ID is required'}), 400

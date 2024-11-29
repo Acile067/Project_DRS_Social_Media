@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IAPIResponsePostDataModel, IAPIResponsePostMessageModel } from '../model/interfaces/post';
 import { environment } from '../../environments/environment.development';
 import { Constant } from '../constant/constant';
-import { ApproveOrRejectId, Post } from '../model/class/post';
+import { PostId, Post } from '../model/class/post';
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +33,15 @@ export class PostService {
     return this.http.get<IAPIResponsePostDataModel>(`${environment.API_URL}${Constant.API_METHOD.APPROVED_POSTS_FOR_USER}`, { headers });
   }
 
-  approvePost(obj: ApproveOrRejectId): Observable<IAPIResponsePostMessageModel> {
+  approvePost(obj: PostId): Observable<IAPIResponsePostMessageModel> {
     return this.http.post<IAPIResponsePostMessageModel>(environment.API_URL + Constant.API_METHOD.APPROVE_POST, obj );
   }
 
-  rejectPost(obj: ApproveOrRejectId): Observable<IAPIResponsePostMessageModel> {
+  rejectPost(obj: PostId): Observable<IAPIResponsePostMessageModel> {
     return this.http.post<IAPIResponsePostMessageModel>(environment.API_URL + Constant.API_METHOD.REJECT_POST, obj );
+  }
+
+  deletePost(obj: PostId): Observable<IAPIResponsePostMessageModel> {
+    return this.http.post<IAPIResponsePostMessageModel>(environment.API_URL + Constant.API_METHOD.DELETE_POST, obj );
   }
 }

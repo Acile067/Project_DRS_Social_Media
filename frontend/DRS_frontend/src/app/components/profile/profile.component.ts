@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { IAPIResponsePostDataModel, IPost } from '../../model/interfaces/post';
+import { IAPIResponsePostDataModel, IAPIResponsePostMessageModel, IPost } from '../../model/interfaces/post';
 import { PostService } from '../../services/post.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { Post, PostId } from '../../model/class/post';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,7 @@ export class ProfileComponent {
   posts: IPost[] = [];
   postService: PostService = inject(PostService);
   subscriptionList: Subscription[] = [];
+  postId: PostId = new PostId();
 
   ngOnInit(): void {
     this.subscriptionList.push(
@@ -31,6 +33,25 @@ export class ProfileComponent {
   ngOnDestroy(): void {
     this.subscriptionList.forEach((element) => {
       element.unsubscribe();
+    });
+  }
+
+  onEditPost(postId: string) {
+    
+  }
+
+  onDeletePost(postId: string) {
+    this.postId.post_id = postId;
+    this.postService.deletePost(this.postId).subscribe((response: IAPIResponsePostMessageModel) => {
+      if (response.message === 'Post deleted successfully') {
+        this.posts = this.posts.filter(post => post.post_id !== postId);
+        alert(response.message);
+      } else {
+        alert('Unknown Response');
+      }
+    }, (error) => {
+      console.error('Error:', error);
+      alert('An error occurred while deleting the post.');
     });
   }
 

@@ -12,7 +12,7 @@ export class Post {
     }
   }
 
-  export class ApproveOrRejectId{
+  export class PostId{
     post_id: string;
 
     constructor(){

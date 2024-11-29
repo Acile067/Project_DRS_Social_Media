@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PostService } from '../../services/post.service'; // Import your PostService
 import { WebSocketService } from '../../services/web-socket.service';
 import { IAPIResponsePostMessageModel, IPost } from '../../model/interfaces/post';
-import { ApproveOrRejectId, Post } from '../../model/class/post';
+import { PostId, Post } from '../../model/class/post';
 
 @Component({
   selector: 'app-posts-review',
@@ -16,7 +16,7 @@ export class PostsReviewComponent implements OnInit {
   posts: IPost[] = [];
   post: Post = new Post();
   postService: PostService = inject(PostService);
-  approveOrRejectId: ApproveOrRejectId = new ApproveOrRejectId();
+  postId: PostId = new PostId();
 
   constructor(
     //private postService: PostService,
@@ -38,8 +38,8 @@ export class PostsReviewComponent implements OnInit {
   }
 
   onApprovePost(postId: string): void {
-    this.approveOrRejectId.post_id = postId;
-    this.postService.approvePost(this.approveOrRejectId).subscribe((response: IAPIResponsePostMessageModel) => {
+    this.postId.post_id = postId;
+    this.postService.approvePost(this.postId).subscribe((response: IAPIResponsePostMessageModel) => {
       if (response.message === 'Post approved') {
         this.posts = this.posts.filter(post => post.post_id !== postId);
         alert(response.message);
@@ -53,8 +53,8 @@ export class PostsReviewComponent implements OnInit {
   }
 
   onRejectPost(postId: string){
-    this.approveOrRejectId.post_id = postId;
-    this.postService.rejectPost(this.approveOrRejectId).subscribe((response: IAPIResponsePostMessageModel) => {
+    this.postId.post_id = postId;
+    this.postService.rejectPost(this.postId).subscribe((response: IAPIResponsePostMessageModel) => {
       if (response.message === 'Post rejected') {
         this.posts = this.posts.filter(post => post.post_id !== postId);
         alert(response.message);

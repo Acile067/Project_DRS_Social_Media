@@ -8,6 +8,7 @@ export const Constant = {
     UNAPPROVED_POSTS: 'post/unapproved',
     APPROVE_POST: 'post/approve',
     REJECT_POST: 'post/reject',
+    DELETE_POST: 'post/delete',
     APPROVED_POSTS_FOR_USER: 'post/approvedpostsforuser',
     SEARCH_FRIEND: 'user/searchfriend',
     ADD_FRIEND: 'relationships/addfriend',
