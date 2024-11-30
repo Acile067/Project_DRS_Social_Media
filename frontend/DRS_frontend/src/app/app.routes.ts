@@ -10,6 +10,7 @@ import { NewPostComponent } from './components/new-post/new-post.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { PostsReviewComponent } from './components/posts-review/posts-review.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
 
 export const routes: Routes = [
   {
@@ -56,5 +57,10 @@ export const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [],
+  },
+  {
+    path: 'editpost/:id',
+    component: EditPostComponent,
+    canActivate: [authGuard],
   },
 ];

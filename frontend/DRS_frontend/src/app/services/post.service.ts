@@ -44,4 +44,15 @@ export class PostService {
   deletePost(obj: PostId): Observable<IAPIResponsePostMessageModel> {
     return this.http.post<IAPIResponsePostMessageModel>(environment.API_URL + Constant.API_METHOD.DELETE_POST, obj );
   }
+
+  getPostInfoForEdit(post_id: string): Observable<IAPIResponsePostDataModel> {
+    return this.http.get<IAPIResponsePostDataModel>(
+      `${environment.API_URL}${Constant.API_METHOD.EDIT_POST}?post_id=${post_id}`
+    );
+  }
+  
+
+  editPost(post: Post): Observable<IAPIResponsePostMessageModel> {
+    return this.http.post<IAPIResponsePostMessageModel>(`${environment.API_URL}${Constant.API_METHOD.EDIT_POST}?post_id=${post.post_id}`, post);
+  }
 }

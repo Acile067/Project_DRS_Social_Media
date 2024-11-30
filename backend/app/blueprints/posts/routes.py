@@ -71,13 +71,13 @@ def create(user_data):
     return jsonify(response), status
 
 
-@posts_bp.route('/editpost', methods=['GET, POST'])
-@token_required
+@posts_bp.route('/editpost', methods=['GET', 'POST'])
+@cross_origin()
 def edit():
-    post_id = request.args.get('post_id')
-
     if request.method == 'GET':
+        post_id = request.args.get('post_id')
         response, status = PostService.get_post_by_id(post_id)
+        print(response)
         return {"data": response}, status
 
     elif request.method == 'POST':

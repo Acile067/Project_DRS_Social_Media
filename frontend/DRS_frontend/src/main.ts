@@ -7,15 +7,6 @@ import { HttpClientModule } from '@angular/common/http'; // Import HttpClientMod
 import { appConfig } from './app/app.config'; // Import the appConfig
 
 // Bootstrap the application with required providers
-bootstrapApplication(AppComponent, {
-  providers: [
-    importProvidersFrom(
-      RouterModule.forRoot(routes),
-      HttpClientModule // Add HttpClientModule to provide HttpClient // Add RouterModule for routing
-    ),
-  ]
-})
-  .catch((err) => console.error(err));
 
   bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));

@@ -4,11 +4,12 @@ import { PostService } from '../../services/post.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Post, PostId } from '../../model/class/post';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -17,6 +18,8 @@ export class ProfileComponent {
   postService: PostService = inject(PostService);
   subscriptionList: Subscription[] = [];
   postId: PostId = new PostId();
+  post: Post = new Post();
+  router = inject(Router);
 
   ngOnInit(): void {
     this.subscriptionList.push(
@@ -37,7 +40,9 @@ export class ProfileComponent {
   }
 
   onEditPost(postId: string) {
-    
+    if (postId) {
+      this.router.navigate(['/editpost', postId]);
+    }
   }
 
   onDeletePost(postId: string) {

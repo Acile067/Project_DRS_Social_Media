@@ -47,7 +47,7 @@ class PostService:
         post.ImagePath = image_path
         post.Approved = approved
 
-        PostsRepository.update_post(post)
+        PostsRepository.update_post()
 
         return {"message": "Ok"}, 200
 
@@ -73,7 +73,6 @@ class PostService:
     @staticmethod
     def get_post_by_id(post_id):
         post = PostsRepository.get_post_by_id(post_id)
-
         if post:
             return {
                 "post_id": post.ID,
