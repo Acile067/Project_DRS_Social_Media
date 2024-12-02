@@ -4,6 +4,7 @@ import { Constant } from '../constant/constant';
 import { jwtDecode } from 'jwt-decode';
 import { AdminService } from './admin.service';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,10 @@ export class AuthService {
 
   router = inject(Router);
 
-  constructor(private adminService: AdminService) {
+  constructor(
+    private adminService: AdminService,
+    private userService: UserService
+  ) {
     this.checkToken();
   }
 
@@ -53,6 +57,7 @@ export class AuthService {
     localStorage.removeItem(Constant.LOCAL_STORAGE_TOKEN);
     this.loggedIn.next(false);
     this.adminService.setAdminStatus(null);
+    this.userService.setUserList([]);
     this.router.navigate(['/login']);
   }
 }

@@ -4,10 +4,19 @@
     <div class="card-body">
       <h5 class="card-title">{{ post.username }}</h5>
       <p class="card-text">{{ post.txt }}</p>
-      <img *ngIf="post.image_path" [src]="'http://localhost:5000/uploads/' + post.image_path" class="img-fluid" alt="Post Image">
+      <img
+        *ngIf="post.image_path"
+        [src]="'http://localhost:5000/uploads/' + post.image_path"
+        class="img-fluid"
+        alt="Post Image"
+      />
       <div class="mt-2">
-        <button (click)="onApprovePost(post.post_id)" class="btn btn-success">Approve</button>
-        <button (click)="onRejectPost(post.post_id)" class="btn btn-danger">Reject</button>
+        <button (click)="onApprovePost(post.post_id)" class="btn btn-success">
+          Approve
+        </button>
+        <button (click)="onRejectPost(post.post_id)" class="btn btn-danger">
+          Reject
+        </button>
       </div>
     </div>
   </div>
