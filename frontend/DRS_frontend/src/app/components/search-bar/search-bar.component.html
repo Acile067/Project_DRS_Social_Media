@@ -15,11 +15,14 @@
     (click)="overlayOpen.set(true)"
     (keydown.ENTER)="search(searchInput.value)"
   />
-  @if(searchTerm()){
+  <div class="close-left">
+      @if(searchTerm()){
   <button mat-icon-button class="close-buttom" (click)="clearSearch()">
     <mat-icon>close</mat-icon>
   </button>
   }
+</div>
+
 </div>
 
 <ng-template
