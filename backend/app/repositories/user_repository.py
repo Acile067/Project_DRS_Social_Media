@@ -10,6 +10,10 @@ class UserRepository:
         return User.query.all()
 
     @staticmethod
+    def get_all_blacklisted_users():
+        return User.query.filter(User.RejectedPostCount > 3).all()
+
+    @staticmethod
     def get_user_by_username(username):
         return User.query.filter_by(Username=username).first()
 

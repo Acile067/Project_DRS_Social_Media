@@ -5,7 +5,6 @@ from app.repositories.relationships_repository import RelationshipsRepository
 from app.blueprints.users.models import User
 from flask_mail import Message
 from app.app import mail
-from flask import current_app
 import threading
 
 SECRET_KEY = 'your_secret_key_here'
@@ -71,6 +70,25 @@ class UserService:
         return {"data": users_list}, 200
 
     @staticmethod
+    def get_all_blacklisted_users(username_id):
+        admin = UserRepository.get_user_by_username(username_id)
+        if not admin.IsAdmin == 'yes':
+            return {"message": "You are not admin"}, 400
+
+        users = UserRepository.get_all_blacklisted_users()
+        users_list = [{"username": user.Username,
+                    "name": user.Name,
+                    "lastname": user.Lastname,
+                    "email": user.Email,
+                    "phonenumber": user.PhoneNumber,
+                    "state": user.State,
+                    "city": user.City,
+                    "address": user.Address}
+                  for user in users]
+
+        return {"data": users_list}, 200
+
+    @staticmethod
     def search_users_by_filter(filter_data, username_id):
 
         if "filter" not in filter_data:
@@ -118,6 +136,9 @@ class UserService:
         existing_user = UserRepository.get_user_by_username(username)
         if not existing_user or existing_user.Password != password:
             return {"message": "Wrong username or password"}, 400
+
+        if existing_user.RejectedPostCount > 3:
+            return {"message": "You are blocked"}, 400
 
         if existing_user.IsNewUser == 'yes':
             existing_user.IsNewUser = 'no'

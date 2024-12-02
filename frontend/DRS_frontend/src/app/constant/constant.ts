@@ -1,6 +1,7 @@
 export const Constant = {
   API_METHOD: {
     GET_ALL_USERS: 'user/users',
+    GET_ALL_BLACKLISTED_USERS: 'user/blacklisted',
     REGISTER_USER: 'user/register',
     LOGIN_USER: 'user/login',
     EDIT_PROFILE: 'user/edituserprofile',
@@ -10,6 +11,7 @@ export const Constant = {
     REJECT_POST: 'post/reject',
     DELETE_POST: 'post/delete',
     EDIT_POST: 'post/editpost',
+    GET_MY_FRIENDS_POSTS: 'post/friendsposts',
     APPROVED_POSTS_FOR_USER: 'post/approvedpostsforuser',
     SEARCH_FRIEND: 'user/searchfriend',
     ADD_FRIEND: 'relationships/addfriend',

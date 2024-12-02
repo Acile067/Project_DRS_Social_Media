@@ -10,6 +10,7 @@ import { FriendsComponent } from './components/friends/friends.component';
 import { PostsReviewComponent } from './components/posts-review/posts-review.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { BlacklistedUsersComponent } from './components/blacklisted-users/blacklisted-users.component';
 
 export const routes: Routes = [
   {
@@ -56,5 +57,10 @@ export const routes: Routes = [
     path: 'editpost/:id',
     component: EditPostComponent,
     canActivate: [authGuard],
+  },
+  {
+    path: 'blacklist',
+    component: BlacklistedUsersComponent,
+    canActivate: [authGuard, adminGuard],
   },
 ];

@@ -9,6 +9,13 @@ def get_all_users():
     response, status = UserService.get_all_users()
     return jsonify(response), status
 
+@users_bp.route('/blacklisted', methods=["GET"])
+@token_required
+def get_all_users_blacklisted_users(user_data):
+    username_id = user_data.get('user_id')
+    response, status = UserService.get_all_blacklisted_users(username_id)
+    return jsonify(response), status
+
 @users_bp.route('/searchfriend', methods=['POST'])
 @token_required
 def search_friend(user_data):

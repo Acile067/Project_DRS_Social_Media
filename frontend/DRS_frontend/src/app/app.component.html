@@ -50,6 +50,12 @@
         </li>
 
         <li class="nav-item" *ngIf="isUserAdmin">
+          <a class="nav-link" routerLink="/blacklist" routerLinkActive="active"
+            >Blacklist</a
+          >
+        </li>
+
+        <li class="nav-item" *ngIf="isUserAdmin">
           <a
             class="nav-link"
             routerLink="/postsreview"

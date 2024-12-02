@@ -4,10 +4,11 @@ import { IAPIResponseUserDataModel, IUser } from '../../model/interfaces/user';
 import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
 import { NewPostComponent } from '../new-post/new-post.component';
+import { MyFriendsPostsComponent } from '../my-friends-posts/my-friends-posts.component';
 @Component({
   selector: 'app-master',
   standalone: true,
-  imports: [CommonModule, NewPostComponent],
+  imports: [CommonModule, NewPostComponent, MyFriendsPostsComponent],
   templateUrl: './master.component.html',
   styleUrl: './master.component.css',
 })

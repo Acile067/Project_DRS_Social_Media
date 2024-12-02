@@ -12,7 +12,7 @@ class Post(db.Model):
     Username = db.Column(db.String(255), nullable=False)
     Txt = db.Column(db.String(255), nullable=True)
     ImagePath = db.Column(db.String(255), nullable=True)
-    Approved = db.Column(db.String(255), nullable=False, default="no")
+    Approved = db.Column(db.String(255), nullable=False, default="no")      #yes, no, rejected
     CreatedAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 

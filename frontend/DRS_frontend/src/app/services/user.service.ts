@@ -29,6 +29,12 @@ export class UserService {
     );
   }
 
+  getAllBlacklistedUsers(): Observable<IAPIResponseUserDataModel> {
+    return this.http.get<IAPIResponseUserDataModel>(
+      environment.API_URL + Constant.API_METHOD.GET_ALL_BLACKLISTED_USERS
+    );
+  }
+
   registerUser(obj: UserRegister): Observable<IAPIResponseUserMessageModel> {
     return this.http.post<IAPIResponseUserMessageModel>(
       environment.API_URL + Constant.API_METHOD.REGISTER_USER,

@@ -1,5 +1,7 @@
 from app.blueprints.posts.models import Post
+from app.blueprints.relationships.models import Relationships
 from app.app import db
+
 
 
 class PostsRepository:
@@ -31,6 +33,24 @@ class PostsRepository:
 
     @staticmethod
     def delete_post(post):
-
         db.session.delete(post)
         db.session.commit()
+
+    @staticmethod
+    def get_friends_posts(username):
+        # Pronađi prijatelje korisnika
+        friends_subquery = db.session.query(Relationships.Requester_id).filter(
+            Relationships.Receiver_id == username, Relationships.Status == "accepted"
+        ).union(
+            db.session.query(Relationships.Receiver_id).filter(
+                Relationships.Requester_id == username, Relationships.Status == "accepted"
+            )
+        ).subquery()
+
+        # Dobij postove prijatelja
+        posts = Post.query.filter(
+            Post.Username.in_(friends_subquery),
+            Post.Approved == "yes"
+        ).order_by(Post.CreatedAt.desc()).all()
+
+        return posts

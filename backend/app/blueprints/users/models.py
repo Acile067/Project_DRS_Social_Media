@@ -16,6 +16,7 @@ class User(db.Model):
     PhoneNumber = db.Column(db.String(255), nullable=False)
     IsAdmin = db.Column(db.String(255), nullable=False, default="no")
     IsNewUser = db.Column(db.String(255), nullable=False, default="yes")
+    RejectedPostCount = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
         return  f"<Username {self.Username}, Name: {self.Name}>"
