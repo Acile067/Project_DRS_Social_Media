@@ -26,20 +26,12 @@
           >
         </li>
 
-        <!--create new post-->
-        <li class="nav-item" *ngIf="isUserLoggedIn">
-          <a class="nav-link" routerLink="/createnewpost" routerLinkActive="active"
-            >New Post</a
-          >
-        </li>
-
         <!--view your profile-->
         <li class="nav-item" *ngIf="isUserLoggedIn">
           <a class="nav-link" routerLink="/profile" routerLinkActive="active"
             >Profile</a
           >
         </li>
-
 
         <li class="nav-item" *ngIf="isUserLoggedIn">
           <a
@@ -58,11 +50,13 @@
         </li>
 
         <li class="nav-item" *ngIf="isUserAdmin">
-          <a class="nav-link" routerLink="/postsreview" routerLinkActive="active"
+          <a
+            class="nav-link"
+            routerLink="/postsreview"
+            routerLinkActive="active"
             >Post Review</a
           >
         </li>
-
 
         <!--end admin-->
 

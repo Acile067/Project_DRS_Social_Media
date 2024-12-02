@@ -6,7 +6,6 @@ import { EditUserProfileComponent } from './components/edit-user-profile/edit-us
 import { authGuard } from './services/guard/auth.guard';
 import { adminGuard } from './services/guard/admin.guard';
 import { logInGuard } from './services/guard/log-in.guard';
-import { NewPostComponent } from './components/new-post/new-post.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { PostsReviewComponent } from './components/posts-review/posts-review.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -44,19 +43,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'createnewpost',
-    component: NewPostComponent,
-    canActivate: [],
-  },
-  {
     path: 'postsreview',
     component: PostsReviewComponent,
-    canActivate: [],
+    canActivate: [authGuard, adminGuard],
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [],
+    canActivate: [authGuard],
   },
   {
     path: 'editpost/:id',

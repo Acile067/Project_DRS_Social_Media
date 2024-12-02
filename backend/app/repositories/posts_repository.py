@@ -10,7 +10,7 @@ class PostsRepository:
 
     @staticmethod
     def get_all_approved_posts_for_user(username):
-        return Post.query.filter_by(Username=username, Approved="yes").all()
+        return Post.query.filter_by(Username=username, Approved="yes").order_by(Post.CreatedAt.desc()).all()
 
     @staticmethod
     def get_post_by_id(post_id):

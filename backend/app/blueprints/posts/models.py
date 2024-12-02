@@ -1,6 +1,7 @@
 from email.policy import default
 import uuid
 from app.app import db
+from datetime import datetime
 from sqlalchemy import Column, Integer, String
 
 
@@ -12,6 +13,7 @@ class Post(db.Model):
     Txt = db.Column(db.String(255), nullable=True)
     ImagePath = db.Column(db.String(255), nullable=True)
     Approved = db.Column(db.String(255), nullable=False, default="no")
+    CreatedAt = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 
     def __repr__(self):
