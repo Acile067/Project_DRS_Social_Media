@@ -3,9 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_mail import Mail
+from flask_socketio import SocketIO
+
 # Initialize the database
 db = SQLAlchemy()
 mail = Mail()
+socketio = SocketIO(cors_allowed_origins="http://localhost:4200")
 
 def create_app():
     app = Flask(__name__, template_folder='templates')
@@ -28,8 +31,9 @@ def create_app():
     db.init_app(app)
     mail.init_app(app)
 
-    # Enable Cross-Origin Resource Sharing (CORS)
-    CORS(app)
+    # Initialize Socket.IO with CORS support
+    socketio.init_app(app, cors_allowed_origins="http://localhost:4200")
+    CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
 
     # Register blueprints
     from app.blueprints.users.routes import users_bp
@@ -44,3 +48,7 @@ def create_app():
     migrate = Migrate(app, db)
 
     return app
+
+if __name__ == "__main__":
+    app = create_app()
+    socketio.run(app, debug=True)

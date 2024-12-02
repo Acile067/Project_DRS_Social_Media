@@ -7,7 +7,7 @@ from sqlalchemy import Column, Integer, String
 class Post(db.Model):
     __tablename__ = 'posts'
 
-    ID = db.Column(db.String(255), primary_key=True, default=lambda: str(uuid.uuid4()))
+    ID = db.Column(db.String(255), primary_key=True)
     Username = db.Column(db.String(255), nullable=False)
     Txt = db.Column(db.String(255), nullable=True)
     ImagePath = db.Column(db.String(255), nullable=True)

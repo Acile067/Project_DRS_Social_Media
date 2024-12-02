@@ -1,0 +1,13 @@
+<div class="container">
+  <div *ngFor="let post of posts" class="card mt-2" style="width: 100%; max-width: 600px; margin: auto;">
+    <div class="card-body">
+      <h5 class="card-title">{{ post.username }}</h5>
+      <p class="card-text">{{ post.txt }}</p>
+      <img *ngIf="post.image_path" [src]="post.image_path" alt="Post Image">
+      <div class="mt-2 d-flex justify-content-between">
+        <button class="btn btn-primary" (click)="onEditPost(post.post_id)">Edit</button>
+        <button class="btn btn-danger" (click)="onDeletePost(post.post_id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

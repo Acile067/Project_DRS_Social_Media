@@ -10,7 +10,7 @@ def add_friend_users(user_data):
     data = request.get_json()
     username_id = user_data.get('user_id')
     receiver_id = data.get('receiver_id')
-
+    print(data)
     if not receiver_id:
         return jsonify({'message': 'Receiver ID is required'}), 400
 
