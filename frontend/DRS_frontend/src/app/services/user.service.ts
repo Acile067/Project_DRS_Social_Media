@@ -7,7 +7,7 @@ import {
   IUser,
 } from '../model/interfaces/user';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserLogin, UserRegister } from '../model/class/user';
+import { UserLogin, Username, UserRegister } from '../model/class/user';
 import { environment } from '../../environments/environment.development';
 import { Constant } from '../constant/constant';
 
@@ -38,6 +38,13 @@ export class UserService {
   registerUser(obj: UserRegister): Observable<IAPIResponseUserMessageModel> {
     return this.http.post<IAPIResponseUserMessageModel>(
       environment.API_URL + Constant.API_METHOD.REGISTER_USER,
+      obj
+    );
+  }
+
+  unblockUser(obj: Username): Observable<IAPIResponseUserMessageModel> {
+    return this.http.post<IAPIResponseUserMessageModel>(
+      environment.API_URL + Constant.API_METHOD.UNBLOCK_USER,
       obj
     );
   }

@@ -2,6 +2,7 @@ export const Constant = {
   API_METHOD: {
     GET_ALL_USERS: 'user/users',
     GET_ALL_BLACKLISTED_USERS: 'user/blacklisted',
+    UNBLOCK_USER: 'user/unblock',
     REGISTER_USER: 'user/register',
     LOGIN_USER: 'user/login',
     EDIT_PROFILE: 'user/edituserprofile',

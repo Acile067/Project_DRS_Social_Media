@@ -30,3 +30,11 @@ export class UserLogin {
     (this.username = ''), (this.password = '');
   }
 }
+
+export class Username {
+  username: string;
+
+  constructor() {
+    this.username = '';
+  }
+}

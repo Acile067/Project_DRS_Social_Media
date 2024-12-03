@@ -200,3 +200,17 @@ class UserService:
 
         return {"message": "Ok", "token": token}, 200
 
+    @staticmethod
+    def unblock_user(username_id, username_to_unblock):
+        admin = UserRepository.get_user_by_username(username_id)
+        if not admin.IsAdmin == 'yes':
+            return {"message": "You are not admin"}, 400
+
+        user_to_unblock = UserRepository.get_user_by_username(username_to_unblock)
+        if not user_to_unblock:
+            return {"message": "User not found"}, 404
+
+        user_to_unblock.RejectedPostCount = 0
+        UserRepository.update_user(user_to_unblock)
+
+        return {"message": "User unblocked"}, 200

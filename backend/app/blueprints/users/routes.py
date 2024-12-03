@@ -54,3 +54,11 @@ def edit_user_profile(user_data):
         data = request.json
         response, status = UserService.edit_user_profile(username_id, data.get('username'), data.get('name'), data.get('lastname'), data.get('password'), data.get('email'),data.get('address'),data.get('city'),data.get('state'),data.get('phonenumber'))
         return jsonify(response), status
+
+@users_bp.route('/unblock', methods=['POST'])
+@token_required
+def unblock_user(user_data):
+    username_id = user_data.get('user_id')
+    data = request.json
+    response, status = UserService.unblock_user(username_id, data.get('username'))
+    return jsonify(response), status

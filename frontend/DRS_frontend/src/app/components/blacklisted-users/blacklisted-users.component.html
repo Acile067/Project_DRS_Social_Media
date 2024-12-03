@@ -2,11 +2,11 @@
   <div class="row justify-content-center">
     <div class="col-lg-9 col-md-8 col-sm-12">
       <div class="content-container">
-        <div *ngIf="myFriendsList.length > 0; else noResults">
+        <div *ngIf="BlacklistedUsersList.length > 0; else noResults">
           <div class="row">
             <div
               class="col-lg-4 col-md-6 col-sm-12 my-2"
-              *ngFor="let user of myFriendsList"
+              *ngFor="let user of BlacklistedUsersList"
             >
               <div
                 class="card h-100 shadow-sm"
@@ -35,7 +35,10 @@
                   <p class="card-text mb-3">
                     <strong>Phone:</strong> {{ user.phonenumber }}
                   </p>
-                  <button class="btn btn-outline-danger mt-auto">
+                  <button
+                    class="btn btn-outline-danger mt-auto"
+                    (click)="onUnblockUser(user.username)"
+                  >
                     Unblock
                   </button>
                 </div>
