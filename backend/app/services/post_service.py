@@ -231,16 +231,18 @@ class PostService:
         return '.' in filename and filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
 
     @staticmethod
-    def edit_post(post_id, username, txt, image_path, approved):
+    def edit_post(post_id, txt, image_filename):
         post = PostsRepository.get_post_by_id(post_id)
         if not post:
             return {"message": "Post not found"}, 404
 
         post.ID = post_id
-        post.Username = username
         post.Txt = txt
-        post.ImagePath = image_path
-        post.Approved = approved
+
+        if image_filename:  # Ako je nova slika, koristimo ime slike sa UUID
+            post.ImagePath = image_filename
+        # Inače zadržavamo postojeći naziv slike, bez potrebe za dodatnim dodeljivanjem
+
         post.CreatedAt = datetime.utcnow()
 
         PostsRepository.update_post()

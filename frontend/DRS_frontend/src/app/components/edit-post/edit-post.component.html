@@ -15,6 +15,14 @@
           alt="Image Preview"
           id="image_path"
         />
+        <!-- If no new image, display the old one -->
+        <img
+          *ngIf="!imagePreview && post.post_id"
+          [src]="'http://localhost:5000/post/post-image/' + post.post_id"
+          class="img-fluid rounded shadow-sm"
+          alt="Image Preview"
+          id="image_path"
+        />
       </div>
 
       <!-- Text Input -->

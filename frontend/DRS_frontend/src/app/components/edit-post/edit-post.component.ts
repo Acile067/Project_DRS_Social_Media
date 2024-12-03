@@ -1,7 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { Post } from '../../model/class/post';
 import { PostService } from '../../services/post.service';
-import { IAPIResponsePostDataModel, IAPIResponsePostMessageModel } from '../../model/interfaces/post';
+import {
+  IAPIResponsePostDataModel,
+  IAPIResponsePostMessageModel,
+} from '../../model/interfaces/post';
 import { Subscription } from 'rxjs';
 import { Constant } from '../../constant/constant';
 import { CommonModule } from '@angular/common';
@@ -13,7 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './edit-post.component.html',
-  styleUrl: './edit-post.component.css'
+  styleUrl: './edit-post.component.css',
 })
 export class EditPostComponent {
   imagePreview: string | ArrayBuffer | null = null;
@@ -31,6 +34,7 @@ export class EditPostComponent {
         this.postService.getPostInfoForEdit(postId).subscribe(
           (res: IAPIResponsePostDataModel) => {
             this.post = res.data;
+            console.log(this.post);
           },
           (error) => {
             alert(error.error.message);
@@ -54,15 +58,26 @@ export class EditPostComponent {
         this.imagePreview = reader.result;
       };
       reader.readAsDataURL(this.imageFile);
+
+      // Assign the new image to the post object to include in the update request
+      this.post.image_path = this.imageFile.name;
     }
   }
 
   onSaveEdit() {
-    this.postService.editPost(this.post).subscribe(
+    const formData = new FormData();
+    formData.append('txt', this.post.txt);
+    formData.append('image', this.imageFile!); // Add the selected image file to FormData
+    formData.append('post_id', this.post.post_id!);
+
+    this.postService.editPost(formData).subscribe(
       (res: IAPIResponsePostMessageModel) => {
         if (res.message === 'Ok') {
           alert('Post Edited Successfully');
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/profile']).then(() => {
+            // After navigation, refresh the page
+            window.location.reload();
+          });
         } else {
           alert(Constant.ALERT_MESSAGES.UNKNOWN_RESPONSE);
         }
@@ -78,11 +93,9 @@ export class EditPostComponent {
     );
   }
 
-
   ngOnDestroy(): void {
     this.subscriptionList.forEach((element) => {
       element.unsubscribe();
     });
   }
-
 }

@@ -19,7 +19,7 @@
       <div class="mb-3">
         <img
           *ngIf="post.image_path"
-          [src]="'http://localhost:5000/uploads/' + post.image_path"
+          [src]="'http://localhost:5000/post/post-image/' + post.post_id"
           class="img-fluid rounded shadow-sm"
           alt="Post Image"
         />

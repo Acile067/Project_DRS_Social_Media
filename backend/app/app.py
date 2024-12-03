@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_mail import Mail
 from flask_socketio import SocketIO
+import os
 
 # Initialize the database
 db = SQLAlchemy()
@@ -15,8 +16,8 @@ def create_app():
 
     # Configure SQLAlchemy (MySQL database)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:MySQLPassword1@127.0.0.1/appDB'
-    UPLOAD_FOLDER = 'uploads/images'
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads', 'images')
+
     app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
     # Mail configuration

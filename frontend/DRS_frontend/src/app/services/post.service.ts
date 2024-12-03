@@ -73,10 +73,10 @@ export class PostService {
     );
   }
 
-  editPost(post: Post): Observable<IAPIResponsePostMessageModel> {
-    return this.http.post<IAPIResponsePostMessageModel>(
-      `${environment.API_URL}${Constant.API_METHOD.EDIT_POST}?post_id=${post.post_id}`,
-      post
+  editPost(formData: FormData): Observable<IAPIResponsePostMessageModel> {
+    return this.http.put<IAPIResponsePostMessageModel>(
+      `${environment.API_URL}${Constant.API_METHOD.EDIT_POST}?post_id=ll`,
+      formData
     );
   }
 }
