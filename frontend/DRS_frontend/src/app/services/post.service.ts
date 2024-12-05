@@ -28,6 +28,12 @@ export class PostService {
     );
   }
 
+  getRejectedPosts(): Observable<IAPIResponsePostDataModel> {
+    return this.http.get<IAPIResponsePostDataModel>(
+      environment.API_URL + Constant.API_METHOD.GET_REJECTED_POSTS
+    );
+  }
+
   getUnapprovedPosts(): Observable<any[]> {
     return this.http.get<any[]>(
       environment.API_URL + Constant.API_METHOD.UNAPPROVED_POSTS

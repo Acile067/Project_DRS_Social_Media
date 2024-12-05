@@ -13,6 +13,7 @@ export const Constant = {
     DELETE_POST: 'post/delete',
     EDIT_POST: 'post/editpost',
     GET_MY_FRIENDS_POSTS: 'post/friendsposts',
+    GET_REJECTED_POSTS: 'post/rejectedposts',
     APPROVED_POSTS_FOR_USER: 'post/approvedpostsforuser',
     SEARCH_FRIEND: 'user/searchfriend',
     ADD_FRIEND: 'relationships/addfriend',

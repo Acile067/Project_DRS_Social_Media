@@ -54,3 +54,7 @@ class PostsRepository:
         ).order_by(Post.CreatedAt.desc()).all()
 
         return posts
+
+    @staticmethod
+    def get_all_rejected_posts_for_user(username):
+        return Post.query.filter_by(Username=username, Approved="rejected").order_by(Post.CreatedAt.desc()).all()

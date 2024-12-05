@@ -11,6 +11,7 @@ import { PostsReviewComponent } from './components/posts-review/posts-review.com
 import { ProfileComponent } from './components/profile/profile.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
 import { BlacklistedUsersComponent } from './components/blacklisted-users/blacklisted-users.component';
+import { RejectedPostsComponent } from './components/rejected-posts/rejected-posts.component';
 
 export const routes: Routes = [
   {
@@ -62,5 +63,10 @@ export const routes: Routes = [
     path: 'blacklist',
     component: BlacklistedUsersComponent,
     canActivate: [authGuard, adminGuard],
+  },
+  {
+    path: 'rejectedposts',
+    component: RejectedPostsComponent,
+    canActivate: [authGuard],
   },
 ];

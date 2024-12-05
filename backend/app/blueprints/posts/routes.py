@@ -160,3 +160,10 @@ def reject_post(user_data):
         return jsonify(response), 200
 
     return jsonify({'message': 'Post not found'}), 404
+
+@posts_bp.route('/rejectedposts', methods=['GET'])
+@token_required
+def get_reject_post(user_data):
+    current_user_id = user_data.get('user_id')
+    response, status = PostService.get_all_rejected_posts_for_user(current_user_id)
+    return jsonify(response), status

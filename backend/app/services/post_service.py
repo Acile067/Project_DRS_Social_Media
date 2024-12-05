@@ -238,6 +238,7 @@ class PostService:
 
         post.ID = post_id
         post.Txt = txt
+        post.Approved = "no"
 
         if image_filename:  # Ako je nova slika, koristimo ime slike sa UUID
             post.ImagePath = image_filename
@@ -317,3 +318,18 @@ class PostService:
         # send_reject_email(user.Email)                                        !!!!!!!!Odkomentarisi kad oces mejl
 
         return {"message": "Post rejected"}, 200
+
+    @staticmethod
+    def get_all_rejected_posts_for_user(current_user_id):
+        posts = PostsRepository.get_all_rejected_posts_for_user(current_user_id)
+        posts_list = [
+            {
+                "post_id": post.ID,
+                "username": post.Username,
+                "txt": post.Txt,
+                "image_path": post.ImagePath,
+                "approved": post.Approved,
+                "created_at": post.CreatedAt.isoformat()
+            } for post in posts
+        ]
+        return {"data": posts_list}, 200

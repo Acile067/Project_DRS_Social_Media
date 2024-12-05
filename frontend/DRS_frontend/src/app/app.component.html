@@ -36,6 +36,15 @@
         <li class="nav-item" *ngIf="isUserLoggedIn">
           <a
             class="nav-link"
+            routerLink="/rejectedposts"
+            routerLinkActive="active"
+            >Rejected Posts</a
+          >
+        </li>
+
+        <li class="nav-item" *ngIf="isUserLoggedIn">
+          <a
+            class="nav-link"
             routerLink="/edituserprofile"
             routerLinkActive="active"
             >Edit Profile</a
