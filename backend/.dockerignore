@@ -1,0 +1,29 @@
+# Ignoriši virtualna okruženja
+.venv
+env
+venv
+
+# Ignoriši Python bytecode fajlove
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Ignoriši verzionu kontrolu i povezane fajlove
+.git
+.gitignore
+
+# Ignoriši fajlove specifične za IDE-ove i editore
+*.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+# Ignoriši lokalne konfiguracione fajlove
+*.env
+*.DS_Store
+
+# Ignoriši fajlove za build sistema
+build/
+dist/
+*.egg-info
