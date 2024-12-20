@@ -1,45 +1,60 @@
 <div class="container-lg container-fluid text-center">
-  <div class="row my-4">
-    <div class="col">
-      <h3>Sign in to an existing account:</h3>
+  <div class="row my-2">
+    <div class="col-12 my-2 text-center">
+      <div class="fs-3 fw-light">Sign in to MyApp</div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-12 mt-2">
-      <label class="fw-bold">Username</label>
-    </div>
-    <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-11 mx-auto">
-      <input
-        id="username"
-        [(ngModel)]="userObj.username"
-        class="form-control rounded-pill"
-        style="border-color: black"
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12 mt-2">
-      <label class="fw-bold">Password</label>
-    </div>
-    <div class="col-12 col-xl-3 col-lg-4 col-md-6 col-sm-11 mx-auto">
-      <input
-        id="password"
-        [(ngModel)]="userObj.password"
-        type="password"
-        class="form-control rounded-pill"
-        style="border-color: black"
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12 col-xl-2 col-lg-3 col-md-5 col-sm-10 mx-auto mt-4">
-      <input
-        id="loginbtn"
-        (click)="onLoginUser()"
-        class="form-control fw-bold border-black rounded-pill"
-        type="submit"
-        value="Log in"
-      />
+  <div class="row justify-content-center">
+    <div
+      class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 bg-light border-1 rounded-2 p-4"
+      style="border: 1px solid grey"
+    >
+      <div class="row mt-2">
+        <div class="col-12">
+          <p class="text-start mb-1">Username</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="username"
+            [(ngModel)]="userObj.username"
+            class="form-control rounded-2"
+            style="border-color: black"
+            placeholder="Enter your username"
+            title="Please fill in this field"
+          />
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-12">
+          <p class="text-start mb-1">Password</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <input
+            id="password"
+            [(ngModel)]="userObj.password"
+            type="password"
+            class="form-control rounded-2"
+            style="border-color: black"
+            placeholder="Enter your password"
+            title="Please fill in this field"
+          />
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-12">
+          <input
+            id="loginbtn"
+            (click)="onLoginUser()"
+            class="btn btn-success w-100 rounded-2 text-white"
+            type="submit"
+            value="Sign in"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </div>
