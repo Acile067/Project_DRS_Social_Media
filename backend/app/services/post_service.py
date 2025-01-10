@@ -263,7 +263,7 @@ class PostService:
 
         PostsRepository.update_post()
 
-        #send_approved_email(user.Email)                                        !!!!!!!!Odkomentarisi kad oces mejl
+        send_approved_email(user.Email)
 
         return {"message": "Post approved"}, 200
 
@@ -312,10 +312,10 @@ class PostService:
         UserRepository.update_user(user)
         PostsRepository.update_post()
 
-        #if user.RejectedPostCount == 4:                                        !!!!!!
-        #  send_block_email(user.Email)                                           !!!!
-        #elif user.RejectedPostCount < 3:                                       !!!!!
-        # send_reject_email(user.Email)                                        !!!!!!!!Odkomentarisi kad oces mejl
+        if user.RejectedPostCount == 4:
+          send_block_email(user.Email)
+        elif user.RejectedPostCount < 3:
+         send_reject_email(user.Email)
 
         return {"message": "Post rejected"}, 200
 

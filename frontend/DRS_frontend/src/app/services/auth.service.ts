@@ -12,6 +12,8 @@ import { UserService } from './user.service';
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   isLoggedIn = this.loggedIn.asObservable();
+  private usernameSubject = new BehaviorSubject<string | null>(null);
+  username = this.usernameSubject.asObservable();
 
   router = inject(Router);
 
@@ -39,9 +41,12 @@ export class AuthService {
   checkToken() {
     const token = localStorage.getItem(Constant.LOCAL_STORAGE_TOKEN);
     if (token && !this.isTokenExpired(token)) {
+      const decoded: any = jwtDecode(token);
+      this.usernameSubject.next(decoded.user_id || null);
       this.loggedIn.next(true);
       this.adminService.setAdminStatus(token);
     } else {
+      this.usernameSubject.next(null);
       this.loggedIn.next(false);
       this.adminService.setAdminStatus(null);
     }
@@ -49,12 +54,15 @@ export class AuthService {
 
   login(token: any) {
     localStorage.setItem(Constant.LOCAL_STORAGE_TOKEN, token);
+    const decoded: any = jwtDecode(token);
+    this.usernameSubject.next(decoded.user_id || null);
     this.loggedIn.next(true);
     this.adminService.setAdminStatus(token);
   }
 
   logout() {
     localStorage.removeItem(Constant.LOCAL_STORAGE_TOKEN);
+    this.usernameSubject.next(null);
     this.loggedIn.next(false);
     this.adminService.setAdminStatus(null);
     this.userService.setUserList([]);

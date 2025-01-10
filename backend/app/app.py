@@ -15,7 +15,7 @@ def create_app():
     app = Flask(__name__, template_folder='templates')
 
     # Configure SQLAlchemy (MySQL database)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:MySQLPassword1@mysql_db:3306/appDB'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:MySQLPassword1@127.0.0.1/appDB'
 
     app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads', 'images')
 

@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
   title = 'DRS_frontend';
   isUserLoggedIn: boolean = false;
   isUserAdmin: boolean = false;
+  username: string | null = null;
+  isSidebarVisible: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -28,10 +30,19 @@ export class AppComponent implements OnInit {
     this.adminService.isAdmin.subscribe((admin: boolean) => {
       this.isUserAdmin = admin;
     });
+    this.authService.username.subscribe((username: string | null) => {
+      this.username = username;
+    });
+  }
+
+  toggleSidebar() {
+    this.isSidebarVisible = !this.isSidebarVisible;
   }
 
   logout() {
     this.authService.logout();
     this.isUserAdmin = false;
+    this.username = null;
+    this.isSidebarVisible = false;
   }
 }

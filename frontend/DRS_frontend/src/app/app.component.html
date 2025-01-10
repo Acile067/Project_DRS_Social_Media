@@ -1,6 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-light">
-  <div class="container">
-    <a class="navbar-brand" routerLink="/index"><b>DRS</b>PROJEKAT</a>
+<nav class="navbar navbar-expand-lg navbar-light" *ngIf="isUserLoggedIn">
+  <div class="container-fluid">
+    <!-- Logo je skroz levo -->
+    <a class="navbar-brand" *ngIf="isUserLoggedIn" routerLink="/index">
+      <b>DRS</b>PROJECT
+    </a>
+
+    <!-- Hamburger menu button (za mobilnu verziju) -->
     <button
       class="navbar-toggler"
       type="button"
@@ -12,82 +17,260 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Desni elementi - Home i Ikonica korisnika -->
       <ul class="navbar-nav ms-auto">
-        <!-- If the user is logged in ✔ -->
-        <li class="nav-item" *ngIf="isUserLoggedIn">
-          <a class="nav-link" routerLink="/index" routerLinkActive="active"
-            >Home</a
-          >
-        </li>
-        <li class="nav-item" *ngIf="isUserLoggedIn">
-          <a class="nav-link" routerLink="/friends" routerLinkActive="active"
-            >Friends</a
-          >
+        <!-- Home za velike ekrane -->
+        <li class="nav-item d-none d-lg-block" *ngIf="isUserLoggedIn">
+          <a class="nav-link" routerLink="/index" routerLinkActive="active">
+            <i class="fa fa-home fs-3" aria-hidden="true"></i>
+          </a>
         </li>
 
-        <!--view your profile-->
-        <li class="nav-item" *ngIf="isUserLoggedIn">
-          <a class="nav-link" routerLink="/profile" routerLinkActive="active"
-            >Profile</a
-          >
+        <!-- Ikonica korisnika za velike ekrane -->
+        <li
+          class="nav-item d-none d-lg-flex align-items-center justify-content-center"
+          *ngIf="isUserLoggedIn"
+          style="cursor: pointer"
+          (click)="toggleSidebar()"
+        >
+          <i class="fa fa-user-circle-o mx-2 fs-3 ps-1" aria-hidden="true"></i>
         </li>
 
-        <li class="nav-item" *ngIf="isUserLoggedIn">
-          <a
-            class="nav-link"
-            routerLink="/rejectedposts"
-            routerLinkActive="active"
-            >Rejected Posts</a
-          >
+        <!-- Linkovi specifični za mobilne uređaje -->
+        <li class="nav-item d-block d-lg-none" *ngIf="isUserLoggedIn">
+          <a class="nav-link" routerLink="/profile" routerLinkActive="active">
+            <i class="fa fa-user fs-5 pe-2" aria-hidden="true"></i> Profile
+          </a>
         </li>
-
-        <li class="nav-item" *ngIf="isUserLoggedIn">
+        <li class="nav-item d-block d-lg-none" *ngIf="isUserLoggedIn">
+          <a class="nav-link" routerLink="/friends" routerLinkActive="active">
+            <i class="fa fa-users fs-5" aria-hidden="true"></i> Friends
+          </a>
+        </li>
+        <li class="nav-item d-block d-lg-none" *ngIf="isUserLoggedIn">
           <a
             class="nav-link"
             routerLink="/edituserprofile"
             routerLinkActive="active"
-            >Edit Profile</a
           >
+            <i class="fa fa-cogs fs-5" aria-hidden="true"></i> Edit Profile
+          </a>
         </li>
 
-        <!--if user is admin-->
-        <li class="nav-item" *ngIf="isUserAdmin">
-          <a class="nav-link" routerLink="/register" routerLinkActive="active"
-            >Register</a
+        <li class="nav-item d-block d-lg-none" *ngIf="isUserLoggedIn">
+          <a
+            class="nav-link"
+            routerLink="/rejectedposts"
+            routerLinkActive="active"
           >
+            <i class="fa fa-ban fs-5 pe-1" aria-hidden="true"></i> Rejected
+            Posts
+          </a>
         </li>
-
-        <li class="nav-item" *ngIf="isUserAdmin">
-          <a class="nav-link" routerLink="/blacklist" routerLinkActive="active"
-            >Blacklist</a
-          >
+        <li class="nav-item d-block d-lg-none" *ngIf="isUserAdmin">
+          <a class="nav-link" routerLink="/register" routerLinkActive="active">
+            <i class="fa fa-user-plus fs-5" aria-hidden="true"></i> Register
+          </a>
         </li>
-
-        <li class="nav-item" *ngIf="isUserAdmin">
+        <li class="nav-item d-block d-lg-none" *ngIf="isUserAdmin">
+          <a class="nav-link" routerLink="/blacklist" routerLinkActive="active">
+            <i class="fa fa-user-times fs-5" aria-hidden="true"></i> Blacklist
+          </a>
+        </li>
+        <li class="nav-item d-block d-lg-none" *ngIf="isUserAdmin">
           <a
             class="nav-link"
             routerLink="/postsreview"
             routerLinkActive="active"
-            >Post Review</a
           >
+            <i class="fa fa-edit fs-5" aria-hidden="true"></i> Posts Review
+          </a>
         </li>
-
-        <!--end admin-->
-
-        <li class="nav-item" *ngIf="isUserLoggedIn">
-          <a class="nav-link" (click)="logout()">Logout</a>
-        </li>
-
-        <!-- If the user is not logged in ❌ -->
-        <li class="nav-item" *ngIf="!isUserLoggedIn">
-          <a class="nav-link" routerLink="/login" routerLinkActive="active"
-            >Login</a
+        <li class="nav-item d-block d-lg-none" *ngIf="isUserLoggedIn">
+          <a
+            class="nav-link"
+            routerLink="/login"
+            routerLinkActive="active"
+            (click)="logout()"
           >
+            <i class="fa fa-sign-out fs-5 pe-1" aria-hidden="true"></i> Logout
+          </a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="container-fluid d-flex" *ngIf="isUserLoggedIn">
+  <div class="row w-100">
+    <!-- Levi sidebar - sakriven na malim ekranima -->
+    <div class="col-2 d-none d-lg-block">
+      <div
+        class="row py-1 hover-bg"
+        routerLink="/profile"
+        style="cursor: pointer"
+      >
+        <div class="col-12 d-flex align-items-center justify-content-start">
+          <i
+            class="fa fa-user me-2 text-black fs-5 ps-1"
+            aria-hidden="true"
+          ></i>
+          <a
+            class="text-decoration-none text-black fs-5 ps-1"
+            routerLink="/profile"
+            routerLinkActive="active"
+            >{{ username || "Profile" }}</a
+          >
+        </div>
+      </div>
+      <div
+        class="row py-1 hover-bg"
+        routerLink="/friends"
+        style="cursor: pointer"
+      >
+        <div class="col-12 d-flex align-items-center justify-content-start">
+          <i class="fa fa-users me-2 text-black fs-5" aria-hidden="true"></i>
+          <a
+            class="text-decoration-none text-black fs-5"
+            routerLink="/friends"
+            routerLinkActive="active"
+            >Friends</a
+          >
+        </div>
+      </div>
+      <div
+        class="row py-1 hover-bg"
+        routerLink="/register"
+        style="cursor: pointer"
+        *ngIf="isUserAdmin"
+      >
+        <div class="col-12 d-flex align-items-center justify-content-start">
+          <i
+            class="fa fa-user-plus me-2 text-black fs-5"
+            aria-hidden="true"
+          ></i>
+          <a
+            class="text-decoration-none text-black fs-5"
+            routerLink="/register"
+            routerLinkActive="active"
+            >Register</a
+          >
+        </div>
+      </div>
+      <div
+        class="row py-1 hover-bg"
+        routerLink="/blacklist"
+        style="cursor: pointer"
+        *ngIf="isUserAdmin"
+      >
+        <div class="col-12 d-flex align-items-center justify-content-start">
+          <i
+            class="fa fa-user-times me-2 text-black fs-5"
+            aria-hidden="true"
+          ></i>
+          <a
+            class="text-decoration-none text-black fs-5"
+            routerLink="/blacklist"
+            routerLinkActive="active"
+            >Blacklist</a
+          >
+        </div>
+      </div>
+      <div
+        class="row py-1 hover-bg"
+        routerLink="/postsreview"
+        style="cursor: pointer"
+        *ngIf="isUserAdmin"
+      >
+        <div class="col-12 d-flex align-items-center justify-content-start">
+          <i class="fa fa-edit me-2 text-black fs-5" aria-hidden="true"></i>
+          <a
+            class="text-decoration-none text-black fs-5 ps-1"
+            routerLink="/postsreview"
+            routerLinkActive="active"
+            >Posts Review</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Glavni sadržaj - zauzima col-12 na malim ekranima -->
+    <div class="col-12 col-lg-8">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- Desni sidebar - sakriven na malim ekranima -->
+    <div class="col-2 d-none d-lg-block text-white" *ngIf="isSidebarVisible">
+      <div class="row py-1">
+        <div
+          class="col-12 d-flex align-items-center justify-content-start hover-bg py-1"
+          style="cursor: pointer"
+          routerLink="/profile"
+        >
+          <i
+            class="fa fa-user me-2 text-black fs-5 ps-2"
+            aria-hidden="true"
+          ></i>
+          <a
+            class="text-decoration-none text-black fs-5 ps-2"
+            routerLink="/profile"
+            routerLinkActive="active"
+            >Profile</a
+          >
+        </div>
+        <div
+          class="col-12 d-flex align-items-center justify-content-start hover-bg py-1"
+          style="cursor: pointer"
+          routerLink="/edituserprofile"
+        >
+          <i
+            class="fa fa-cogs me-2 text-black fs-5 ps-1"
+            aria-hidden="true"
+          ></i>
+          <a
+            class="text-decoration-none text-black fs-5 ps-1"
+            routerLink="/edituserprofile"
+            routerLinkActive="active"
+            >Edit Profile</a
+          >
+        </div>
+        <div
+          class="col-12 d-flex align-items-center justify-content-start hover-bg py-1"
+          style="cursor: pointer"
+          routerLink="/rejectedposts"
+        >
+          <i class="fa fa-ban me-2 text-black fs-5 ps-1" aria-hidden="true"></i>
+          <a
+            class="text-decoration-none text-black fs-5 ps-2"
+            routerLink="/rejectedposts"
+            routerLinkActive="active"
+            >Rejected Posts</a
+          >
+        </div>
+        <div
+          class="col-12 d-flex align-items-center justify-content-start hover-bg py-1"
+          style="cursor: pointer"
+          routerLink="/login"
+        >
+          <i
+            class="fa fa-sign-out me-2 text-black fs-5 ps-1"
+            aria-hidden="true"
+          ></i>
+          <a
+            class="text-decoration-none text-black fs-5 ps-2"
+            routerLink="/login"
+            routerLinkActive="active"
+            (click)="logout()"
+            >Logout</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="!isUserLoggedIn">
+  <router-outlet></router-outlet>
+</ng-container>

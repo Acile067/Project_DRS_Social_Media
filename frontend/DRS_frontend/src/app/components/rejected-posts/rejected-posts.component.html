@@ -1,4 +1,4 @@
-<div class="container py-4">
+<div class="container py-4" *ngIf="posts.length > 0; else noResults">
   <div
     *ngFor="let post of posts"
     class="card shadow-sm mb-4 border-0 mx-auto"
@@ -44,3 +44,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #noResults>
+  <p class="text-center text-muted mt-4">No rejected posts found</p>
+</ng-template>
