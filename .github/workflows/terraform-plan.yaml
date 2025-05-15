@@ -1,4 +1,4 @@
-name: Terraform Apply Pipeline
+name: Terraform Plan Pipeline
 
 on:
   workflow_dispatch:
@@ -30,8 +30,8 @@ jobs:
           ${{ github.workspace }}/.github/scripts/terraform-with-backend.sh validate
         working-directory: ${{ env.WORKING_DIRECTORY }}
 
-      - name: Terraform Apply
+      - name: Terraform Plan
         run: |
           chmod +x ${{ github.workspace }}/.github/scripts/terraform-with-backend.sh
-          ${{ github.workspace }}/.github/scripts/terraform-with-backend.sh apply -var-file="env-${{ vars.ENVIRONMENT_NAME }}.tfvars" -auto-approve
+          ${{ github.workspace }}/.github/scripts/terraform-with-backend.sh plan -var-file="env-${{ vars.ENVIRONMENT_NAME }}.tfvars"
         working-directory: ${{ env.WORKING_DIRECTORY }}
