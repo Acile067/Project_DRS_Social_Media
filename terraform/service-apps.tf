@@ -28,10 +28,18 @@ resource azurerm_linux_web_app backend {
 
 }
 
-resource azurerm_static_web_app frontend {
-  name                = "swa-${var.application_name}-fe-${var.environment_name}-${var.location_short}-${var.resource_version}"
+resource azurerm_linux_web_app frontend {
+  name                = "lwa-${var.application_name}-fe-${var.environment_name}-${var.location_short}-${var.resource_version}"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  sku_tier            = var.sku_tier
-  sku_size            = var.sku_size
+  service_plan_id     = azurerm_service_plan.main.id
+
+  site_config {
+    ip_restriction_default_action = "Allow"
+    minimum_tls_version           = 1.2
+    always_on                     = false
+    application_stack {
+      node_version = "20-lts"
+    }
+  }
 }
