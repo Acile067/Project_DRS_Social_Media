@@ -13,3 +13,12 @@ variable resource_version {
 variable environment_name {
   type = string
 }
+variable sku_name {
+  type = string
+}
+variable sku_size {
+  type = string
+}
+variable sku_tier {
+  type = string
+}
