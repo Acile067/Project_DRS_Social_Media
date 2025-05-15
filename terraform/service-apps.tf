@@ -28,7 +28,7 @@ resource azurerm_linux_web_app backend {
 
 }
 
-resource azurerm_static_site frontend {
+resource azurerm_static_web_app frontend {
   name                = "swa-${var.application_name}-fe-${var.environment_name}-${var.location_short}-${var.resource_version}"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
