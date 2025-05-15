@@ -1,0 +1,34 @@
+name: Terraform Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-20.04
+
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      BACKEND_RESOURCE_GROUP_NAME: ${{ secrets.BACKEND_RESOURCE_GROUP_NAME }}
+      BACKEND_STORAGE_ACCOUNT_NAME: ${{ secrets.BACKEND_STORAGE_ACCOUNT_NAME }}
+      BACKEND_STORAGE_ACCOUNT_CONTAINER_NAME: ${{ secrets.BACKEND_STORAGE_ACCOUNT_CONTAINER_NAME }}
+      TF_BACKEND_KEY: ${{ secrets.APPLICATION_NAME }}-${{ secrets.ENVIRONMENT_NAME }}
+      WORKING_DIRECTORY: ./terraform
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Terraform Validate
+        run: |
+          chmod +x .github/workflows/scripts/terraform-with-backend.sh
+          .github/workflows/scripts/terraform-with-backend.sh validate
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
+      - name: Terraform Apply
+        run: |
+          chmod +x .github/workflows/scripts/terraform-with-backend.sh
+          .github/workflows/scripts/terraform-with-backend.sh apply -var-file="env-${{ secrets.ENVIRONMENT_NAME }}.tfvars" -auto-approve
+        working-directory: ${{ env.WORKING_DIRECTORY }}
