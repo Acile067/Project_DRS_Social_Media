@@ -1,5 +1,5 @@
 resource azurerm_storage_account main { 
-  name                     = "st${var.application_name}be${var.environment_name}${var.location_short}${var.resource_version}"
+  name                     = "st${var.application_name}${var.environment_name}${var.resource_version}"
   resource_group_name      = azurerm_resource_group.main.name
   location                 = azurerm_resource_group.main.location
   account_tier             = "Standard"
