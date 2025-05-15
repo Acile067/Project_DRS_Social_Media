@@ -34,8 +34,4 @@ resource azurerm_static_web_app frontend {
   location            = azurerm_resource_group.main.location
   sku_tier            = var.sku_tier
   sku_size            = var.sku_size
-
-  identity {
-    type = "SystemAssigned"
-  }
 }
