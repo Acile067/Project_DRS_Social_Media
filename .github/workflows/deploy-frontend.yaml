@@ -48,7 +48,7 @@ jobs:
       - name: Deploy to Azure Web App
         run: |
           az webapp deploy \
-            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
-            --name ${{ env.AZURE_WEBAPP_NAME }} \
+            --resource-group $AZURE_RESOURCE_GROUP \
+            --name $AZURE_WEBAPP_NAME \
             --src-path ${{ env.WORKING_DIRECTORY }}/frontend.zip \
             --type zip
