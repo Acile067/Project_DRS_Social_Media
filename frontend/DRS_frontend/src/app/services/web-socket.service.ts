@@ -1,18 +1,18 @@
 // websocket.service.ts
 import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { io } from 'socket.io-client';  // Uvozite io funkciju iz socket.io-client
+import { io } from 'socket.io-client'; // Uvozite io funkciju iz socket.io-client
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebSocketService {
   private socket: any;
 
   constructor() {
     // Kreirajte socket vezu koristeći io
-    this.socket = io('http://localhost:5000');
+    this.socket = io(environment.API_URL);
   }
 
   // Method to emit events
@@ -22,7 +22,7 @@ export class WebSocketService {
 
   // Method to listen for events
   on(eventName: string): Observable<any> {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       this.socket.on(eventName, (data: any) => {
         observer.next(data);
       });

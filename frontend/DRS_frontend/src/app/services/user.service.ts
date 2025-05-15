@@ -8,7 +8,7 @@ import {
 } from '../model/interfaces/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserLogin, Username, UserRegister } from '../model/class/user';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { Constant } from '../constant/constant';
 
 @Injectable({

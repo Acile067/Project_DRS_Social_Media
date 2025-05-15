@@ -5,7 +5,7 @@ import {
   IAPIResponsePostDataModel,
   IAPIResponsePostMessageModel,
 } from '../model/interfaces/post';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { Constant } from '../constant/constant';
 import { PostId, Post } from '../model/class/post';
 

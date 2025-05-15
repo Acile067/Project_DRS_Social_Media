@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { effect, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Constant } from '../constant/constant';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { IAPIResponsePostDataModel } from '../model/interfaces/post';
 import { Filter } from '../model/class/filter';
 
