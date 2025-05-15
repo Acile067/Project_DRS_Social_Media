@@ -5,8 +5,11 @@ terraform {
       version = "4.28.0"
     }
   }
+  backend azurerm {
+
+   }
 }
 
 provider azurerm {
-
+  features {}
 }
