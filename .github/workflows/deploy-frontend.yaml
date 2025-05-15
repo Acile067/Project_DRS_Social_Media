@@ -41,7 +41,7 @@ jobs:
           zip -r ../../frontend.zip .
 
       - name: Azure CLI login
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
