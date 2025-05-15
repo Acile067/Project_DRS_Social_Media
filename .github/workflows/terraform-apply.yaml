@@ -24,11 +24,11 @@ jobs:
       - name: Terraform Validate
         run: |
           chmod +x .github/scripts/terraform-with-backend.sh
-          .github/workflows/scripts/terraform-with-backend.sh validate
+          .github/scripts/terraform-with-backend.sh validate
         working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Terraform Apply
         run: |
           chmod +x .github/scripts/terraform-with-backend.sh
-          .github/workflows/scripts/terraform-with-backend.sh apply -var-file="env-${{ secrets.ENVIRONMENT_NAME }}.tfvars" -auto-approve
+          .github/scripts/terraform-with-backend.sh apply -var-file="env-${{ secrets.ENVIRONMENT_NAME }}.tfvars" -auto-approve
         working-directory: ${{ env.WORKING_DIRECTORY }}
