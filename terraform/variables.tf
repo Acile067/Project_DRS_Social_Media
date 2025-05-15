@@ -7,6 +7,9 @@ variable location_short {
 variable application_name {
   type = string
 }
+variable resource_version {
+  type = string
+}
 variable environment_name {
   type = string
 }
