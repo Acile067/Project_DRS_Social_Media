@@ -1,3 +1,18 @@
+data azurerm_key_vault main {
+  name                = "kv-socialmediadrs-mng"
+  resource_group_name = "rg-socialmediadrs-mng-eun"
+}
+
+data azurerm_key_vault_secret admin_login {
+  name         = "sql-admin"
+  key_vault_id = data.azurerm_key_vault.existing.id
+}
+
+data azurerm_key_vault_secret admin_password {
+  name         = "sql-password"
+  key_vault_id = data.azurerm_key_vault.existing.id
+}
+
 resource azurerm_mssql_server main {
   name                         = "sql-${var.application_name}-${var.environment_name}-${var.location_short}-${var.resource_version}"
   resource_group_name          = azurerm_resource_group.main.name
