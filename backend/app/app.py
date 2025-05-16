@@ -5,7 +5,6 @@ from flask_cors import CORS
 from flask_mail import Mail
 from flask_socketio import SocketIO
 from app.config import Config
-from flask_migrate import upgrade
 
 # Initialize the database
 db = SQLAlchemy()
@@ -34,8 +33,5 @@ def create_app():
     app.register_blueprint(relationships_bp, url_prefix='/relationships')
 
     migrate = Migrate(app, db)
-
-    with app.app_context():
-        upgrade()
 
     return app
