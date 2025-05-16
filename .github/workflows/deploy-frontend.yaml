@@ -37,8 +37,8 @@ jobs:
 
       - name: Archive production build
         run: |
-          cd ${{ env.WORKING_DIRECTORY }}/dist/drs-frontend
-          zip -r ../../frontend.zip .
+          cd ${{ env.WORKING_DIRECTORY }}/dist/drs-frontend/browser
+          zip -r ../../../frontend.zip .
 
       - name: Azure CLI login
         uses: azure/login@v2
