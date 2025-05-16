@@ -38,6 +38,7 @@ resource azurerm_linux_web_app frontend {
     ip_restriction_default_action = "Allow"
     minimum_tls_version           = 1.2
     always_on                     = false
+    app_command_line = "npm install -g serve && serve -s ."
     application_stack {
       node_version = "20-lts"
     }
