@@ -1,6 +1,9 @@
-from app.app import create_app
+from app.app import create_app, socketio
+from dotenv import load_dotenv
 
-flask_app = create_app()
+load_dotenv()
 
-if __name__ == '__main__':
-    flask_app.run(host='0.0.0.0', debug=True)
+app = create_app()
+
+if __name__ == "__main__":
+    socketio.run(app, host='0.0.0.0', debug=True)
