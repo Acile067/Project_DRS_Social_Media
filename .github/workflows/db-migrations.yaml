@@ -1,0 +1,70 @@
+name: DB Migrations Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  db-migrations:
+    runs-on: windows-latest
+
+    env:
+      MAIL_USERNAME: ${{ vars.MAIL_USERNAME }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+      MAIL_DEFAULT_SENDER: ${{ vars.MAIL_DEFAULT_SENDER }}
+      FLASK_APP: ${{ vars.FLASK_APP }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      FLASK_ENV: ${{ vars.FLASK_ENV }}
+      WORKING_DIRECTORY: ./backend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          .venv\Scripts\activate
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
+      - name: Azure CLI login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Get agent public IP
+        id: ip
+        run: |
+          echo "AGENT_IP=$(curl -s http://ipinfo.io/ip)" >> $GITHUB_ENV
+
+      - name: Add AgentIP to SQL server firewall
+        run: |
+          az sql server firewall-rule create \
+            --resource-group ${{ secrets.AZURE_SQL_RESOURCE_GROUP }} \
+            --server ${{ secrets.AZURE_SQL_SERVER_NAME }} \
+            --name AllowGitHubActions \
+            --start-ip-address $AGENT_IP \
+            --end-ip-address $AGENT_IP
+        env:
+          AZURE_SQL_SERVER_NAME: ${{ secrets.AZURE_SQL_SERVER_NAME }}
+
+      - name: Run DB Migrations
+        run: |
+          .venv\Scripts\activate
+          flask db init
+          flask db migrate
+          flask db upgrade
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
+      - name: Remove Agent IP from SQL firewall
+        if: always()
+        run: |
+          az sql server firewall-rule delete \
+          --resource-group ${{ secrets.AZURE_SQL_RESOURCE_GROUP }} \
+          --server ${{ secrets.AZURE_SQL_SERVER_NAME }} \
+          --name AllowGitHubActions
