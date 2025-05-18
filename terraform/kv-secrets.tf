@@ -12,3 +12,8 @@ data azurerm_key_vault_secret admin_password {
   name         = "sql-password"
   key_vault_id = data.azurerm_key_vault.main.id
 }
+
+data azurerm_key_vault_secret mail_password {
+  name         = "mail-password"
+  key_vault_id = data.azurerm_key_vault.main.id
+}
