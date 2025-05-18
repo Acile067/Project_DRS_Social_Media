@@ -35,8 +35,8 @@ jobs:
 
       - name: Archive production build
         run: |
-          cd ${{ env.WORKING_DIRECTORY }}
-          zip -r backend.zip .
+          Add-Type -A 'System.IO.Compression.FileSystem'
+          [IO.Compression.ZipFile]::CreateFromDirectory("${{ env.WORKING_DIRECTORY }}", "backend.zip")
 
       - name: Azure CLI login
         uses: azure/login@v2
@@ -44,10 +44,10 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy to Azure Web App
-        shell: bash
         run: |
-          az webapp deploy \
-            --resource-group $AZURE_RESOURCE_GROUP \
-            --name $AZURE_WEBAPP_NAME \
-            --src-path ${{ env.WORKING_DIRECTORY }}/backend.zip \
+          az webapp deploy `
+            --resource-group $env:AZURE_RESOURCE_GROUP `
+            --name $env:AZURE_WEBAPP_NAME `
+            --src-path $env:WORKING_DIRECTORY/backend.zip `
             --type zip
+        shell: pwsh
