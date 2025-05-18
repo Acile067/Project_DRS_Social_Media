@@ -27,7 +27,8 @@ resource azurerm_linux_web_app backend {
     type = "SystemAssigned"  
   }
   app_settings = {
-    "DATABASE_URL"        = "Data Source=sql-${var.application_name}-${var.environment_name}-${var.location_short}-${var.resource_version}.database.windows.net,1433;Initial Catalog=sqldb-${var.application_name}-${var.environment_name}-${var.location_short}-${var.resource_version};Persist Security Info=False;User ID=${data.azurerm_key_vault_secret.admin_login.value};Password=${data.azurerm_key_vault_secret.admin_password.value};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    "FLASK_APP"           = "app.app"
+    "DB_PASSWORD"         = "${data.azurerm_key_vault_secret.admin_password.value}"
     "MAIL_USERNAME"       = "aleksandarsasastefanjovana@gmail.com"
     "MAIL_PASSWORD"       = "${data.azurerm_key_vault_secret.mail_password.value}"
     "MAIL_DEFAULT_SENDER" = "aleksandarsasastefanjovana@gmail.com"
