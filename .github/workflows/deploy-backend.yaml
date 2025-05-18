@@ -11,6 +11,12 @@ jobs:
       WORKING_DIRECTORY: ./backend
       AZURE_WEBAPP_NAME: lwa-socialmediadrs-be-dev-eun-001
       AZURE_RESOURCE_GROUP: rg-socialmediadrs-dev-eun-001
+      MAIL_USERNAME: ${{ vars.MAIL_USERNAME }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+      MAIL_DEFAULT_SENDER: ${{ vars.MAIL_DEFAULT_SENDER }}
+      FLASK_APP: ${{ vars.FLASK_APP }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      FLASK_ENV: ${{ vars.FLASK_ENV }}
 
     strategy:
       matrix:
