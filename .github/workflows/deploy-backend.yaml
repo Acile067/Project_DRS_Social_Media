@@ -40,8 +40,8 @@ jobs:
 
       - name: Archive production build
         run: |
-          Add-Type -A 'System.IO.Compression.FileSystem'
-          [IO.Compression.ZipFile]::CreateFromDirectory("${{ env.WORKING_DIRECTORY }}", "backend.zip")
+          zip -r backend.zip .
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: List files in backend.zip
         run: unzip -l backend.zip
@@ -53,9 +53,8 @@ jobs:
 
       - name: Deploy to Azure Web App
         run: |
-          az webapp deploy `
-            --resource-group $env:AZURE_RESOURCE_GROUP `
-            --name $env:AZURE_WEBAPP_NAME `
-            --src-path backend.zip `
+          az webapp deploy \
+            --resource-group $AZURE_RESOURCE_GROUP \
+            --name $AZURE_WEBAPP_NAME \
+            --src-path backend.zip \
             --type zip
-        shell: pwsh
