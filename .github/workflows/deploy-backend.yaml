@@ -53,5 +53,5 @@ jobs:
           az webapp deploy \
             --resource-group $AZURE_RESOURCE_GROUP \
             --name $AZURE_WEBAPP_NAME \
-            --src-path backend.zip \
+            --src-path ${{ env.WORKING_DIRECTORY }}/backend.zip \
             --type zip
