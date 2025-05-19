@@ -5,7 +5,7 @@ on:
 
 jobs:
   backend-CI-CD:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     env:
       WORKING_DIRECTORY: ./backend
