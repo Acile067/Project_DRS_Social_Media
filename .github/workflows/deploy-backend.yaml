@@ -34,8 +34,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m venv antenv
-          ./antenv/Scripts/python.exe -m pip install --upgrade pip
-          ./antenv/Scripts/pip.exe install -r requirements.txt
+          ./antenv/bin/python.exe -m pip install --upgrade pip
+          ./antenv/bin/pip.exe install -r requirements.txt
         working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Archive production build
