@@ -27,7 +27,7 @@ resource azurerm_linux_web_app backend {
     type = "SystemAssigned"  
   }
   app_settings = {
-    "FLASK_APP"           = "app.app"
+    "FLASK_APP"           = "run:flask_app"
     "DB_PASSWORD"         = "${data.azurerm_key_vault_secret.admin_password.value}"
     "MAIL_USERNAME"       = "aleksandarsasastefanjovana@gmail.com"
     "MAIL_PASSWORD"       = "${data.azurerm_key_vault_secret.mail_password.value}"
