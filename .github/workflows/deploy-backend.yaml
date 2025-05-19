@@ -51,11 +51,9 @@ jobs:
 
       - name: List files in backend.zip
         run: unzip -l backend.zip
-        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Show installed packages in virtualenv
         run: ./antenv/Scripts/pip.exe list
-        working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Azure CLI login
         uses: azure/login@v2
