@@ -31,12 +31,14 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install ODBC Driver
+        run: choco install -y microsoft-odbc-driver-17-for-sql-server
+
       - name: Install dependencies
         run: |
           python -m venv antenv
           ./antenv/Scripts/python.exe -m pip install --upgrade pip
           ./antenv/Scripts/pip.exe install -r requirements.txt
-          ./antenv/Scripts/python.exe app/app.py
         working-directory: ${{ env.WORKING_DIRECTORY }}
 
       - name: Archive production build
