@@ -16,7 +16,7 @@ resource azurerm_linux_web_app backend {
     ip_restriction_default_action = "Allow"
     minimum_tls_version = 1.2
     always_on = false
-    app_command_line = "gunicorn --worker-class eventlet -w 1 run:flask_app"
+    app_command_line = "gunicorn --worker-class eventlet -w 1 run:app"
 
   application_stack {
     python_version = "3.9"

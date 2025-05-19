@@ -31,12 +31,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Download ODBC Driver 17
-        run: curl -L -o msodbcsql17.msi https://download.microsoft.com/download/e/0/3/e0377b2b-f3a7-4cf9-ae54-309a43f0b8ee/msodbcsql.msi
-
-      - name: Install ODBC Driver 17
-        run: msiexec /i msodbcsql17.msi /quiet /norestart
-
       - name: Install dependencies
         run: |
           python -m venv antenv
@@ -51,9 +45,6 @@ jobs:
 
       - name: List files in backend.zip
         run: unzip -l backend.zip
-
-      - name: Show installed packages in virtualenv
-        run: ./antenv/Scripts/pip.exe list
 
       - name: Azure CLI login
         uses: azure/login@v2
