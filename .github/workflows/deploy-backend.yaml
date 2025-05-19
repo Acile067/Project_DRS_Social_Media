@@ -31,9 +31,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install ODBC Driver using winget
-        run: |
-          winget install --accept-package-agreements --accept-source-agreements Microsoft.ODBCDriver17
+      - name: Install ODBC driver
+        run: choco install -y sqlserver-odbcdriver
 
       - name: Install dependencies
         run: |
