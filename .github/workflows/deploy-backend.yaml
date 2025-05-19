@@ -43,9 +43,6 @@ jobs:
           zip -r backend.zip .
         working-directory: ${{ env.WORKING_DIRECTORY }}
 
-      - name: List files in backend.zip
-        run: unzip -l backend.zip
-
       - name: Azure CLI login
         uses: azure/login@v2
         with:
