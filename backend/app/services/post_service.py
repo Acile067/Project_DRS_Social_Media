@@ -227,20 +227,17 @@ class PostService:
             image.save(image_path)  # Čuvanje slike na server
         else:
             try:
-                blob_service_client = BlobServiceClient.from_connection_string(
-                    current_app.config['AZURE_STORAGE_ACCOUNT_CONNECTION_STRING']
-                )
-                container_client = blob_service_client.get_container_client(
-                    current_app.config['AZURE_STORAGE_CONTAINER']
-                )
-                image.stream.seek(0)  # Vrati pokazivač na početak
+                connection_string = current_app.config['AZURE_BLOB_CONNECTION_STRING']
+                container_name = current_app.config['AZURE_BLOB_CONTAINER_NAME']
 
-                container_client.upload_blob(
-                    name=unique_filename,
-                    data=image.stream,
-                    overwrite=True,
-                    content_settings=ContentSettings(content_type=image.mimetype)
-                )
+                blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+                blob_client = blob_service_client.get_blob_client(container=container_name, blob=unique_filename)
+
+                # Pretvaranje slike u bajtove i upload
+                image_bytes = image.read()
+                content_settings = ContentSettings(content_type=image.content_type)
+
+                blob_client.upload_blob(image_bytes, overwrite=True, content_settings=content_settings)
             except Exception as e:
                 print("Greška pri uploadu slike:", e)
 
