@@ -14,9 +14,9 @@ resource azurerm_linux_web_app backend {
 
   site_config {
     ip_restriction_default_action = "Allow"
-    minimum_tls_version = 1.2
-    always_on = false
-    app_command_line = "gunicorn --worker-class eventlet -w 1 run:flask_app"
+    minimum_tls_version           = 1.2
+    always_on                     = false
+    app_command_line              = "gunicorn --worker-class eventlet -w 1 run:flask_app"
 
   application_stack {
     python_version = "3.9"
@@ -35,9 +35,8 @@ resource azurerm_linux_web_app backend {
     "CORS_ORIGINS"        = "*"
     "FLASK_ENV"           = "production"
     
-    "AZURE_STORAGE_ACCOUNT_NAME" = azurerm_storage_account.main.name
-    "AZURE_STORAGE_ACCOUNT_KEY"  = azurerm_storage_account.main.primary_access_key
-    "AZURE_STORAGE_CONTAINER"    = azurerm_storage_container.main.name
+    "AZURE_STORAGE_ACCOUNT_CONNECTION_STRING" = azurerm_storage_account.main.primary_connection_string
+    "AZURE_STORAGE_CONTAINER"                 = azurerm_storage_container.main.name
   }
 }
 
@@ -51,7 +50,7 @@ resource azurerm_linux_web_app frontend {
     ip_restriction_default_action = "Allow"
     minimum_tls_version           = 1.2
     always_on                     = false
-    app_command_line = "npx serve -s ."
+    app_command_line              = "npx serve -s ."
     application_stack {
       node_version = "20-lts"
     }

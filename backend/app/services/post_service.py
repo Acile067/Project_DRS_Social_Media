@@ -9,6 +9,7 @@ from app.blueprints.posts.models import Post
 from flask_mail import Message
 from app.app import mail
 import threading
+from azure.storage.blob import BlobServiceClient
 
 def send_email_to_admin_that_post_is_created_task(app, username):
     with app.app_context():  # Push the application context
@@ -216,13 +217,27 @@ class PostService:
         image_uuid = str(uuid.uuid4())
         unique_filename = f"{image_uuid}.{extension}"
 
-        # Putanja za čuvanje slike
-        upload_folder = current_app.config['UPLOAD_FOLDER']
-        if not os.path.exists(upload_folder):
-            os.makedirs(upload_folder)
+        if(current_app.config['FLASK_ENV'] == "development"):
+            # Putanja za čuvanje slike
+            upload_folder = current_app.config['UPLOAD_FOLDER']
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
 
-        image_path = os.path.join(upload_folder, unique_filename)
-        image.save(image_path)  # Čuvanje slike na server
+            image_path = os.path.join(upload_folder, unique_filename)
+            image.save(image_path)  # Čuvanje slike na server
+        else:
+            blob_service_client = BlobServiceClient.from_connection_string((current_app.config['AZURE_STORAGE_ACCOUNT_CONNECTION_STRING']))
+
+            try:
+                container_client = blob_service_client.get_container_client(container=(current_app.config['AZURE_STORAGE_CONTAINER']))
+                container_client.get_container_properties()
+            except Exception as e:
+                container_client = blob_service_client.create_container((current_app.config['AZURE_STORAGE_CONTAINER']))
+
+            try:
+                container_client.upload_blob(unique_filename)
+            except Exception as e:
+                print(e)
 
         return image_uuid
 
