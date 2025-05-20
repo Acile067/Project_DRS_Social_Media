@@ -9,7 +9,7 @@ from app.blueprints.posts.models import Post
 from flask_mail import Message
 from app.app import mail
 import threading
-from azure.storage.blob import BlobServiceClient
+from azure.storage.blob import BlobServiceClient, ContentSettings
 
 def send_email_to_admin_that_post_is_created_task(app, username):
     with app.app_context():  # Push the application context
@@ -206,7 +206,7 @@ class PostService:
                 'image_path': image_uuid
             })
 
-        send_email_to_admin(username)
+        # send_email_to_admin(username)                                         !!!! nemoj zaboraviti da otkometarises
 
         return response, status
 
@@ -233,13 +233,13 @@ class PostService:
                 container_client = blob_service_client.get_container_client(
                     current_app.config['AZURE_STORAGE_CONTAINER']
                 )
-                # Nema potrebe za get_container_properties()
+                image.stream.seek(0)  # Vrati pokazivač na početak
 
-                # Uploaduj sliku
                 container_client.upload_blob(
                     name=unique_filename,
                     data=image.stream,
-                    overwrite=True
+                    overwrite=True,
+                    content_settings=ContentSettings(content_type=image.mimetype)
                 )
             except Exception as e:
                 print("Greška pri uploadu slike:", e)
