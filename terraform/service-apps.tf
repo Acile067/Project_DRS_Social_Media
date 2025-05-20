@@ -19,7 +19,7 @@ resource azurerm_linux_web_app backend {
     app_command_line              = "gunicorn --worker-class eventlet -w 1 run:flask_app"
 
   application_stack {
-    python_version = "3.9"
+    python_version = "3.11"
     }
 }
 
