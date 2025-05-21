@@ -227,8 +227,8 @@ class PostService:
             image.save(image_path)  # Čuvanje slike na server
         else:
             try:
-                connection_string = current_app.config['AZURE_BLOB_CONNECTION_STRING']
-                container_name = current_app.config['AZURE_BLOB_CONTAINER_NAME']
+                connection_string = current_app.config['AZURE_STORAGE_ACCOUNT_CONNECTION_STRING']
+                container_name = current_app.config['AZURE_STORAGE_CONTAINER']
 
                 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
                 blob_client = blob_service_client.get_blob_client(container=container_name, blob=unique_filename)
