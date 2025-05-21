@@ -16,9 +16,3 @@ variable environment_name {
 variable sku_name {
   type = string
 }
-variable sku_size {
-  type = string
-}
-variable sku_tier {
-  type = string
-}
