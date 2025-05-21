@@ -228,16 +228,19 @@ class PostService:
         else:
             try:
                 connection_string = current_app.config['AZURE_STORAGE_ACCOUNT_CONNECTION_STRING']
+                print(connection_string)
                 container_name = current_app.config['AZURE_STORAGE_CONTAINER']
+                print(container_name)
 
                 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
                 blob_client = blob_service_client.get_blob_client(container=container_name, blob=unique_filename)
+                print("blob_client kreiran")
 
-                # Pretvaranje slike u bajtove i upload
                 image_bytes = image.read()
                 content_settings = ContentSettings(content_type=image.content_type)
 
                 blob_client.upload_blob(image_bytes, overwrite=True, content_settings=content_settings)
+                print("Upload slike uspeo!")
             except Exception as e:
                 print("Greška pri uploadu slike:", e)
 
