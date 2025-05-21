@@ -10,6 +10,7 @@ from flask_mail import Message
 from app.app import mail
 import threading
 from azure.storage.blob import BlobServiceClient, ContentSettings
+from azure.core.exceptions import ResourceExistsError
 
 def send_email_to_admin_that_post_is_created_task(app, username):
     with app.app_context():  # Push the application context
@@ -228,21 +229,25 @@ class PostService:
         else:
             try:
                 connection_string = current_app.config['AZURE_STORAGE_ACCOUNT_CONNECTION_STRING']
-                print(connection_string)
                 container_name = current_app.config['AZURE_STORAGE_CONTAINER']
-                print(container_name)
 
                 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
                 blob_client = blob_service_client.get_blob_client(container=container_name, blob=unique_filename)
-                print("blob_client kreiran")
 
-                image_bytes = image.read()
                 content_settings = ContentSettings(content_type=image.content_type)
 
-                blob_client.upload_blob(image_bytes, overwrite=True, content_settings=content_settings)
-                print("Upload slike uspeo!")
+                image.seek(0)
+
+                blob_client.upload_blob(image, overwrite=True, content_settings=content_settings)
+
+                current_app.logger.info(f"Image uploaded successfully: {unique_filename}")
+
+            except ResourceExistsError:
+                current_app.logger.warning(f"Blob already exists: {unique_filename}")
+                return None
             except Exception as e:
-                print("Greška pri uploadu slike:", e)
+                current_app.logger.error(f"Error uploading image: {str(e)}")
+                return None
 
         return image_uuid
 
