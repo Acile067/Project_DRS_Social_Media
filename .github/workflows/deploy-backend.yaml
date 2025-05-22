@@ -31,20 +31,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Archive production build
-        run: |
-          zip -r backend.zip . -x "antenv/*" "__pycache__/*" "*.pyc" "*.pyo" "*.pyd" ".git/*" ".github/*" "tests/*"
-        working-directory: ${{ env.WORKING_DIRECTORY }}
-
       - name: Azure CLI login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy to Azure Web App
+      - name: Deploy via Oryx (auto install requirements.txt)
         run: |
           az webapp deploy \
             --resource-group $AZURE_RESOURCE_GROUP \
             --name $AZURE_WEBAPP_NAME \
-            --src-path ${{ env.WORKING_DIRECTORY }}/backend.zip \
-            --type zip
+            --src-path ${{ env.WORKING_DIRECTORY }} \
+            --type runtime
