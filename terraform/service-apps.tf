@@ -16,7 +16,7 @@ resource azurerm_linux_web_app backend {
     ip_restriction_default_action = "Allow"
     minimum_tls_version           = 1.2
     always_on                     = true
-    app_command_line = "[ ! -d /home/site/wwwroot/antenv ] && python3 -m venv /home/site/wwwroot/antenv; /home/site/wwwroot/antenv/bin/pip install --upgrade pip && /home/site/wwwroot/antenv/bin/pip install -r /home/site/wwwroot/requirements.txt && /home/site/wwwroot/antenv/bin/gunicorn --chdir /home/site/wwwroot --worker-class eventlet -w 1 run:flask_app"
+    app_command_line = "[ ! -d /home/site/wwwroot/antenv ] && python3 -m venv /home/site/wwwroot/antenv && /home/site/wwwroot/antenv/bin/python -m ensurepip --upgrade; /home/site/wwwroot/antenv/bin/pip install --upgrade pip && /home/site/wwwroot/antenv/bin/pip install -r /home/site/wwwroot/requirements.txt && /home/site/wwwroot/antenv/bin/gunicorn --chdir /home/site/wwwroot --worker-class eventlet -w 1 run:flask_app"
 
   application_stack {
     python_version = "3.11"
