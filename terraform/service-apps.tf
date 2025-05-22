@@ -15,7 +15,7 @@ resource azurerm_linux_web_app backend {
   site_config {
     ip_restriction_default_action = "Allow"
     minimum_tls_version           = 1.2
-    always_on                     = false
+    always_on                     = true
     app_command_line              = "gunicorn --worker-class eventlet -w 1 run:flask_app"
 
   application_stack {
@@ -49,7 +49,7 @@ resource azurerm_linux_web_app frontend {
   site_config {
     ip_restriction_default_action = "Allow"
     minimum_tls_version           = 1.2
-    always_on                     = false
+    always_on                     = true
     app_command_line              = "npx serve -s ."
     application_stack {
       node_version = "20-lts"
