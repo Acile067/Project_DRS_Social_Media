@@ -22,7 +22,7 @@ class Config:
 
         SQL_STRING = f"mssql+pyodbc:///?odbc_connect={params}"
 
-        AZURE_STORAGE_ACCOUNT_CONNECTION_STRING = os.getenv('AZURE_STORAGE_ACCOUNT_CONNECTION_STRING')
+        AZURE_STORAGE_ACCOUNT_NAME = os.getenv('AZURE_STORAGE_ACCOUNT_NAME')
         AZURE_STORAGE_CONTAINER = os.getenv('AZURE_STORAGE_CONTAINER')
         
     else:
