@@ -35,8 +35,8 @@ resource azurerm_linux_web_app backend {
     "CORS_ORIGINS"        = "*"
     "FLASK_ENV"           = "production"
     
-    "AZURE_STORAGE_ACCOUNT_CONNECTION_STRING" = azurerm_storage_account.main.primary_connection_string
-    "AZURE_STORAGE_CONTAINER"                 = azurerm_storage_container.main.name
+    "AZURE_STORAGE_ACCOUNT_NAME" = azurerm_storage_account.main.name
+    "AZURE_STORAGE_CONTAINER"    = azurerm_storage_container.main.name
   }
 }
 

@@ -11,6 +11,7 @@ from app.app import mail
 import threading
 from azure.storage.blob import BlobServiceClient, ContentSettings
 from azure.core.exceptions import ResourceExistsError
+from azure.identity import DefaultAzureCredential
 
 def send_email_to_admin_that_post_is_created_task(app, username):
     with app.app_context():  # Push the application context
@@ -228,16 +229,16 @@ class PostService:
             image.save(image_path)  # Čuvanje slike na server
         else:
             try:
-                connection_string = current_app.config['AZURE_STORAGE_ACCOUNT_CONNECTION_STRING']
+                account_name = current_app.config['AZURE_STORAGE_ACCOUNT_NAME']
                 container_name = current_app.config['AZURE_STORAGE_CONTAINER']
+                account_url = f"https://{account_name}.blob.core.windows.net"
 
-                blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+                credential = DefaultAzureCredential()
+                blob_service_client = BlobServiceClient(account_url=account_url, credential=credential)
                 blob_client = blob_service_client.get_blob_client(container=container_name, blob=unique_filename)
 
                 content_settings = ContentSettings(content_type=image.content_type)
-
                 image.seek(0)
-
                 blob_client.upload_blob(image, overwrite=True, content_settings=content_settings)
 
                 current_app.logger.info(f"Image uploaded successfully: {unique_filename}")
