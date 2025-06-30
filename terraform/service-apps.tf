@@ -14,12 +14,12 @@ resource azurerm_linux_web_app backend {
 
   site_config {
     ip_restriction_default_action = "Allow"
-    minimum_tls_version = 1.2
-    always_on = false
-    app_command_line = "gunicorn --worker-class eventlet -w 1 run:flask_app"
+    minimum_tls_version           = 1.2
+    always_on                     = true
+    app_command_line = "[ ! -d /home/site/wwwroot/antenv ] && python3 -m venv /home/site/wwwroot/antenv && /home/site/wwwroot/antenv/bin/python -m ensurepip --upgrade; /home/site/wwwroot/antenv/bin/pip install --upgrade pip && /home/site/wwwroot/antenv/bin/pip install -r /home/site/wwwroot/requirements.txt && /home/site/wwwroot/antenv/bin/gunicorn --chdir /home/site/wwwroot --worker-class eventlet -w 1 run:flask_app"
 
   application_stack {
-    python_version = "3.9"
+    python_version = "3.11"
     }
 }
 
@@ -36,7 +36,6 @@ resource azurerm_linux_web_app backend {
     "FLASK_ENV"           = "production"
     
     "AZURE_STORAGE_ACCOUNT_NAME" = azurerm_storage_account.main.name
-    "AZURE_STORAGE_ACCOUNT_KEY"  = azurerm_storage_account.main.primary_access_key
     "AZURE_STORAGE_CONTAINER"    = azurerm_storage_container.main.name
   }
 }
@@ -50,8 +49,8 @@ resource azurerm_linux_web_app frontend {
   site_config {
     ip_restriction_default_action = "Allow"
     minimum_tls_version           = 1.2
-    always_on                     = false
-    app_command_line = "npx serve -s ."
+    always_on                     = true
+    app_command_line              = "npx serve -s ."
     application_stack {
       node_version = "20-lts"
     }

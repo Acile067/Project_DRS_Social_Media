@@ -21,6 +21,10 @@ class Config:
         )
 
         SQL_STRING = f"mssql+pyodbc:///?odbc_connect={params}"
+
+        AZURE_STORAGE_ACCOUNT_NAME = os.getenv('AZURE_STORAGE_ACCOUNT_NAME')
+        AZURE_STORAGE_CONTAINER = os.getenv('AZURE_STORAGE_CONTAINER')
+        
     else:
         SQL_STRING = "mysql+mysqlconnector://root:MySQLPassword1@127.0.0.1/appDB"
     

@@ -9,6 +9,9 @@ from app.blueprints.posts.models import Post
 from flask_mail import Message
 from app.app import mail
 import threading
+from azure.storage.blob import BlobServiceClient, ContentSettings
+from azure.core.exceptions import ResourceExistsError
+from azure.identity import DefaultAzureCredential
 
 def send_email_to_admin_that_post_is_created_task(app, username):
     with app.app_context():  # Push the application context
@@ -205,7 +208,7 @@ class PostService:
                 'image_path': image_uuid
             })
 
-        send_email_to_admin(username)
+        # send_email_to_admin(username)                                         !!!! nemoj zaboraviti da otkometarises
 
         return response, status
 
@@ -216,13 +219,36 @@ class PostService:
         image_uuid = str(uuid.uuid4())
         unique_filename = f"{image_uuid}.{extension}"
 
-        # Putanja za čuvanje slike
-        upload_folder = current_app.config['UPLOAD_FOLDER']
-        if not os.path.exists(upload_folder):
-            os.makedirs(upload_folder)
+        if(current_app.config['FLASK_ENV'] == "development"):
+            # Putanja za čuvanje slike
+            upload_folder = current_app.config['UPLOAD_FOLDER']
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
 
-        image_path = os.path.join(upload_folder, unique_filename)
-        image.save(image_path)  # Čuvanje slike na server
+            image_path = os.path.join(upload_folder, unique_filename)
+            image.save(image_path)  # Čuvanje slike na server
+        else:
+            try:
+                account_name = current_app.config['AZURE_STORAGE_ACCOUNT_NAME']
+                container_name = current_app.config['AZURE_STORAGE_CONTAINER']
+                account_url = f"https://{account_name}.blob.core.windows.net"
+
+                credential = DefaultAzureCredential()
+                blob_service_client = BlobServiceClient(account_url=account_url, credential=credential)
+                blob_client = blob_service_client.get_blob_client(container=container_name, blob=unique_filename)
+
+                content_settings = ContentSettings(content_type=image.content_type)
+                image.seek(0)
+                blob_client.upload_blob(image, overwrite=True, content_settings=content_settings)
+
+                current_app.logger.info(f"Image uploaded successfully: {unique_filename}")
+
+            except ResourceExistsError:
+                current_app.logger.warning(f"Blob already exists: {unique_filename}")
+                return None
+            except Exception as e:
+                current_app.logger.error(f"Error uploading image: {str(e)}")
+                return None
 
         return image_uuid
 
